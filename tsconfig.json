@@ -15,6 +15,12 @@
     },
     {
       "path": "./e2e/tsconfig.json"
+    },
+    {
+      "path": "./projects/ngneat/edit-in-place/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/ngneat/edit-in-place/tsconfig.spec.json"
     }
-]
+  ]
 }

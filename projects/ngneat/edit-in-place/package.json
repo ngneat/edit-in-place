@@ -1,0 +1,28 @@
+{
+  "name": "@ngneat/edit-in-place",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^10.0.4",
+    "@angular/core": "^10.0.4"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
+  "keywords": [
+    "angular",
+    "angular 2",
+    "edit-in-place"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/ngneat/edit-in-place/issue"
+  },
+  "homepage": "https://github.com/ngneat/edit-in-place#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ngneat/edit-in-place"
+  }
+}
