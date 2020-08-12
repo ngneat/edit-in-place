@@ -24,7 +24,7 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - run: npm install
-      - run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadless
+      - run: npm run test -- edit-in-place --no-watch --no-progress --browsers=ChromeHeadless
       - run: npm run prettier:check
         env:
           CI: true
