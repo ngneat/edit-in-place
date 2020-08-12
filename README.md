@@ -12,7 +12,7 @@
 [![ngneat](https://img.shields.io/badge/@-ngneat-383636?style=flat-square&labelColor=8f68d4)](https://github.com/ngneat/)
 [![spectator](https://img.shields.io/badge/tested%20with-spectator-2196F3.svg?style=flat-square)]()
 
-> The Library Slogan
+> Simplify the edition in place for Angular applications
 
 **Edit in place** is a complete solution to switch modes between a content and a form tag to edit it.  
 Following open/closed principle, the library focus on the switch mecanism, giving you full control on the data you want to update and the content you want to display and the way to edit it.
