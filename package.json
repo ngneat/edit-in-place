@@ -40,7 +40,8 @@
     "test:lib": "ng test @ngneat/edit-in-place",
     "release": "cd projects/ngneat/edit-in-place && standard-version --infile ../../../CHANGELOG.md",
     "test:lib:headless": "cross-env CI=true npm run test:lib",
-    "prettier:check": "prettier --check \"**\""
+    "prettier:check": "prettier --check \"**\"",
+    "prettier": "prettier --write \"**\""
   },
   "private": true,
   "dependencies": {
