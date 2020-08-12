@@ -39,7 +39,8 @@
     "build:lib": "ng build @ngneat/edit-in-place",
     "test:lib": "ng test @ngneat/edit-in-place",
     "release": "cd projects/ngneat/edit-in-place && standard-version --infile ../../../CHANGELOG.md",
-    "test:lib:headless": "cross-env CI=true npm run test:lib"
+    "test:lib:headless": "cross-env CI=true npm run test:lib",
+    "prettier:check": "prettier --check \"**\""
   },
   "private": true,
   "dependencies": {
@@ -62,10 +63,19 @@
     "@angular-devkit/build-ng-packagr": "~0.1000.3",
     "@angular/cli": "~10.0.1",
     "@angular/compiler-cli": "~10.0.2",
-    "@types/node": "^12.11.1",
+    "@commitlint/cli": "8.1.0",
+    "@commitlint/config-angular": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
+    "@ngneat/spectator": "latest",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^12.11.1",
+    "all-contributors-cli": "^6.8.1",
+    "angular-cli-ghpages": "^0.6.2",
     "codelyzer": "^6.0.0-next.1",
+    "cross-env": "^5.2.0",
+    "git-cz": "^3.2.1",
+    "husky": "^3.0.1",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~5.0.0",
@@ -73,22 +83,14 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~3.3.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "lint-staged": "^9.2.0",
     "ng-packagr": "^10.0.0",
+    "prettier": "^2.0.5",
     "protractor": "~7.0.0",
+    "standard-version": "^6.0.1",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~3.9.5",
-    "@commitlint/cli": "8.1.0",
-    "@commitlint/config-angular": "^8.1.0",
-    "@commitlint/config-conventional": "^8.1.0",
-    "git-cz": "^3.2.1",
-    "all-contributors-cli": "^6.8.1",
-    "lint-staged": "^9.2.0",
-    "prettier": "^2.0.5",
-    "standard-version": "^6.0.1",
-    "husky": "^3.0.1",
-    "cross-env": "^5.2.0",
-    "@ngneat/spectator": "latest"
+    "typescript": "~3.9.5"
   },
   "config": {
     "commitizen": {
@@ -104,8 +106,7 @@
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -e $GIT_PARAMS",
-      "pre-commit": "npm run hooks:pre-commit && lint-staged",
-      "pre-push": "npm run test:lib:headless"
+      "pre-commit": "npm run hooks:pre-commit && lint-staged"
     }
   }
 }

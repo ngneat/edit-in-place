@@ -1,0 +1,256 @@
+<header>
+  <p align="center">
+    <img width="20%" height="20%" src="../assets/logo.svg" alt="project logo" />
+  </p>
+  <h1>Edit in place examples</h1>
+</header>
+
+<section>
+  <h4>Sample input</h4>
+  <article>
+    <editable
+      data-testid="sample-input"
+      [openBindingEvent]="openBindingEvent"
+      (update)="updateSingleField('inputText', 'inputControl')"
+      (cancel)="cancelSingleField('inputText', 'inputControl')"
+    >
+      <ng-template viewMode>
+        {{ inputText }}
+      </ng-template>
+      <ng-template editMode>
+        <input
+          editableOnEnter
+          editableOnEscape
+          data-testid="sample-input-edit"
+          placeholder="Title"
+          type="text"
+          [formControl]="inputControl"
+        />
+      </ng-template>
+    </editable>
+  </article>
+</section>
+
+<section>
+  <h4>Sample input triggered by single click [provided by global configuration]</h4>
+  <article>
+    <editable
+      data-testid="sample-input-click"
+      (update)="updateSingleField('inputText', 'inputControl')"
+      (cancel)="cancelSingleField('inputText', 'inputControl')"
+    >
+      <ng-template viewMode>
+        {{ inputText }}
+      </ng-template>
+      <ng-template editMode>
+        <input data-testid="sample-input-click-edit" placeholder="Title" type="text" [formControl]="inputControl" />
+      </ng-template>
+    </editable>
+  </article>
+</section>
+
+<section>
+  <h4>Sample input triggered by hovering</h4>
+  <article>
+    <editable
+      data-testid="sample-input-hover"
+      openBindingEvent="mouseover"
+      closeBindingEvent="mouseout"
+      (update)="updateSingleField('inputText', 'inputControl')"
+      (cancel)="cancelSingleField('inputText', 'inputControl')"
+    >
+      <ng-template viewMode>
+        {{ inputText }}
+      </ng-template>
+      <ng-template editMode>
+        <input data-testid="sample-input-hover-edit" placeholder="Title" type="text" [formControl]="inputControl" />
+      </ng-template>
+    </editable>
+  </article>
+</section>
+
+<section>
+  <h4>Sample input with focus</h4>
+  <article>
+    <editable
+      data-testid="sample-input-focus"
+      [openBindingEvent]="openBindingEvent"
+      (update)="updateSingleField('inputFocusText', 'inputFocusControl')"
+      (cancel)="cancelSingleField('inputFocusText', 'inputFocusControl')"
+    >
+      <ng-template viewMode>
+        {{ inputFocusText }}
+      </ng-template>
+      <ng-template editMode>
+        <input
+          data-testid="sample-input-focus-edit"
+          editableFocusable
+          placeholder="Title"
+          type="text"
+          [formControl]="inputFocusControl"
+        />
+      </ng-template>
+    </editable>
+  </article>
+</section>
+
+<section>
+  <h4>Sample input with action buttons</h4>
+  <article>
+    <editable
+      data-testid="sampleForm-btn"
+      [openBindingEvent]="openBindingEvent"
+      (update)="updateSingleField('inputButtonsText', 'inputButtonsControl')"
+      (cancel)="cancelSingleField('inputButtonsText', 'inputButtonsControl')"
+    >
+      <ng-template viewMode>
+        {{ inputButtonsText }}
+      </ng-template>
+      <ng-template editMode>
+        <input data-testid="sampleForm-btn-edit" placeholder="Title" type="text" [formControl]="inputButtonsControl" />
+        <button data-testid="sampleForm-save-btn" editableOnUpdate>Save</button>
+        <button data-testid="sampleForm-cancel-btn" class="cancel-btn" editableOnCancel>Cancel</button>
+      </ng-template>
+    </editable>
+  </article>
+</section>
+
+<section>
+  <h4>Sample select</h4>
+  <article>
+    <editable
+      data-testid="sample-select"
+      [openBindingEvent]="openBindingEvent"
+      (update)="updateSingleField('selectText', 'selectControl')"
+      (cancel)="cancelSingleField('selectText', 'selectControl')"
+    >
+      <ng-template viewMode>
+        {{ selectText }}
+      </ng-template>
+      <ng-template editMode>
+        <select data-testid="sample-select-edit" name="sample-select" [formControl]="selectControl">
+          <option *ngFor="let option of selectOptions" [value]="option">{{ option }}</option>
+        </select>
+      </ng-template>
+    </editable>
+  </article>
+</section>
+
+<section>
+  <h4>Sample checkbox</h4>
+  <article>
+    <editable
+      data-testid="sample-checkbox"
+      [openBindingEvent]="openBindingEvent"
+      (update)="updateSingleField('checkboxText', 'checkboxControl')"
+      (cancel)="cancelSingleField('checkboxText', 'checkboxControl')"
+    >
+      <ng-template viewMode>
+        {{ checkboxText }}
+      </ng-template>
+      <ng-template editMode>
+        <input data-testid="sample-checkbox-edit" type="checkbox" [formControl]="checkboxControl" />
+      </ng-template>
+    </editable>
+  </article>
+</section>
+
+<section>
+  <h4>Sample range</h4>
+  <article>
+    <editable
+      data-testid="sample-range"
+      [openBindingEvent]="openBindingEvent"
+      (update)="updateSingleField('rangeText', 'rangeControl')"
+      (cancel)="cancelSingleField('rangeText', 'rangeControl')"
+    >
+      <ng-template viewMode>
+        {{ rangeText }}
+      </ng-template>
+      <ng-template editMode>
+        <input data-testid="sample-range-edit" type="range" min="0" max="10" [formControl]="rangeControl" />
+      </ng-template>
+    </editable>
+  </article>
+</section>
+
+<section>
+  <h4>Sample radio</h4>
+  <article>
+    <editable
+      data-testid="sample-radio"
+      [openBindingEvent]="openBindingEvent"
+      (update)="updateSingleField('radioText', 'radioControl')"
+      (cancel)="cancelSingleField('radioText', 'radioControl')"
+    >
+      <ng-template viewMode>
+        {{ radioText }}
+      </ng-template>
+      <ng-template editMode>
+        <div class="sample-radio" *ngFor="let option of radioOptions">
+          <label>{{ option }}</label>
+          <input
+            name="sample-radio"
+            [value]="option"
+            data-testid="sample-radio-edit"
+            type="radio"
+            [formControl]="radioControl"
+          />
+        </div>
+      </ng-template>
+    </editable>
+  </article>
+</section>
+
+<section>
+  <h4>Table example</h4>
+  <article>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Active</th>
+      </tr>
+      <tr *ngFor="let account of accounts; index as index">
+        <td>
+          <editable data-testid="table-name" (update)="updateField(index, 'name')" (cancel)="cancel(index, 'name')">
+            <ng-template viewMode>
+              {{ account.name }}
+            </ng-template>
+            <ng-template editMode>
+              <input placeholder="name" type="text" [formControl]="getControl(index, 'name')" />
+            </ng-template>
+          </editable>
+        </td>
+        <td>
+          <editable data-testid="table-role" (update)="updateField(index, 'role')" (cancel)="cancel(index, 'role')">
+            <ng-template viewMode>
+              {{ account.role }}
+            </ng-template>
+            <ng-template editMode>
+              <select name="role" [formControl]="getControl(index, 'role')">
+                <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+              </select>
+            </ng-template>
+          </editable>
+        </td>
+        <td>
+          <editable
+            data-testid="table-active"
+            (update)="updateField(index, 'isActive')"
+            (cancel)="cancel(index, 'isActive')"
+          >
+            <ng-template viewMode>
+              {{ account.isActive }}
+            </ng-template>
+            <ng-template editMode>
+              <input placeholder="isActive" type="checkbox" [formControl]="getControl(index, 'isActive')" />
+            </ng-template>
+          </editable>
+        </td>
+      </tr>
+    </table>
+  </article>
+</section>
+
+<div data-testid="outside"></div>

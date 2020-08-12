@@ -14,20 +14,19 @@
 
 > The Library Slogan
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid assumenda atque blanditiis cum delectus eligendi ipsam iste iure, maxime modi molestiae nihil obcaecati odit officiis pariatur quibusdam suscipit temporibus unde.
-Accusantium aliquid corporis cupiditate dolores eum exercitationem illo iure laborum minus nihil numquam odit officiis possimus quas quasi quos similique, temporibus veritatis? Exercitationem, iure magni nulla quo sapiente soluta. Esse?
+**Edit in place** is a complete solution to switch modes between a content and a form tag to edit it.  
+Following open/closed principle, the library focus on the switch mecanism, giving you full control on the data you want to update and the content you want to display and the way to edit it.
 
 ## Features
 
-- ✅ One
-- ✅ Two
-- ✅ Three
+- ✅ Fully customizable
+- ✅ Manual trigger support 
+- ✅ Reactive Forms support
 
 ## Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [FAQ](#faq)
 
 ## Installation
 
@@ -41,17 +40,173 @@ Accusantium aliquid corporis cupiditate dolores eum exercitationem illo iure lab
 
 ## Usage
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid assumenda atque blanditiis cum delectus eligendi ipsam iste iure, maxime modi molestiae nihil obcaecati odit officiis pariatur quibusdam suscipit temporibus unde.
+Add the `EditableModule` to your `AppModule`.
 
-```ts
-function helloWorld() {}
+```typescript
+import { EditableModule } from '@ngneat/edit-in-place';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [EditableModule],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
 ```
 
-## FAQ
+Now you can use the `<editable>` component :
 
-## How to ...
+```html
+<editable>
+    <ng-template viewMode>
+        <!-- content to display -->
+    </ng-template>
+    <ng-template editMode>
+        <!-- edit content -->
+    </ng-template>
+</editable>
+```
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid assumenda atque blanditiis cum delectus eligendi ips
+
+### Change the active mode
+
+By default you can switch mode with single clicking :
+- into the viewMode content to switch to editMode
+- outside of the `<editable>` component to switch back to viewMode
+
+You can customize the switch behavior by providing a `MouseEvent` type :
+
+```html
+<editable 
+  openBindingEvent="dblclick"
+  closeBindingEvent="dblclick"
+>
+    <!-- content -->
+</editable>
+```
+
+You can set this value globally inside the providers array of your `AppModule` :
+
+```typescript
+@NgModule({
+  ...
+  providers: [
+    {
+      provide: EDITABLE_CONFIG, useValue: {
+        openBindingEvent: 'dblclick',
+        closeBindingEvent: 'dblclick',
+      } as EditableConfig
+    }
+  ]
+})
+export class AppModule {}
+```
+
+
+### Event emitters
+
+Add the `(update)` event binding to handle the update of the content.   
+It's triggered by :
+- editableOnEnter directive
+- editableOnUpdate directive
+- closeBinbingEvent @Input MouseEvent
+
+```html
+<editable (update)="updateField()">
+    <!-- content -->
+</editable>
+```
+
+Optionally you can add the `(cancel)` event binding to handle the reset the value of a formControl.
+It's triggered by :
+- editableCancel directive
+- editableOnEscape directive
+
+
+```html
+<editable (cancel)="resetField()">
+    <!-- content -->
+</editable>
+```
+
+## Customization
+
+### Handle events manually
+
+You canse use the `editableOnUpdate` and `editableOnCancel` directives to trigger the update or the reset of the value on chosen html tags.
+
+```html
+<editable (update)="updateField()" (cancel)="resetField()">
+    <!-- viewMode content -->
+    <ng-template editMode>
+        <input type="text">
+        <button editableOnUpdate>save</button>
+        <button editableOnCancel>cancel</button>    
+    </ng-template>
+</editable>
+```
+
+
+### Handle focus
+
+As a focusable form tag might be nested or custom, it isn't focused by default when the editMode is displayed.  
+You can add the *editable-focus* directive on the input :
+
+```html
+<editable (cancel)="resetField()">
+    <!-- viewMode content -->
+    <ng-template editMode>
+        <input editableFocusable type="text">   
+    </ng-template>
+</editable>
+```
+
+## Inputs
+
+| @Input                 | Type                      | Description                                                  | Default                                                                |
+| ---------------------- | ------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------- |
+| openBinbindEvent       | `string`                  | The MouseEvent type to display the editMode                  | `click`                                                              |
+| closeBindingEvent      | `string`                  | The MouseEvent type to display the viewMode                  | `click`                                                                 |
+
+## Outputs
+
+| @Output                | Type                      | Description                                                                                                               |
+| ---------------------- | ------------------------- | ------------------------------------------------------------
+| update                 | `void`                    | triggered by the editableOnUpdate and editableOnEnter directives and the MouseEvent on closeBindingEvent @Input                                                                               |
+| cancel                 | `void`                    | triggered by the editableCancel and editableOnEscape directives                                                                                 |
+
+
+## Directives
+
+#### editableFocusable
+
+focus the host element when switching to editMode (for nested inputs).
+
+#### editableOnEnter
+
+listen to keyup enter to switch to viewMode and update the value of the viewMode host element.
+
+#### editableOnEscape
+
+listens to keyup escape to switch to viewMode without updating the value of the viewMode host element
+
+#### EditableOnUpdate
+
+listens to a MouseEvent on ths host element in order to switch to viewMode and udpate the value of the content of the viewMode host element.
+
+| @Input                 | Type                      | Description                                                  | Default                                                                |
+| ---------------------- | ------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------- |
+| updateEvent            | `string`                  | The MouseEvent type used to trigger the @Output() update     | `click`                                                              |
+
+
+#### EditableOnCancel
+
+listens to a MouseEvent on ths host element in order to trigger to switch to viewMode without updating the value of the viewMode host element.
+
+
+| @Input                 | Type                      | Description                                                  | Default                                                                |
+| ---------------------- | ------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------- |
+| cancelEvent            | `string`                  | The MouseEvent type used to trigger the @Output() cancel     | `click`                                                              |
+
 
 ## Contributors ✨
 

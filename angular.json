@@ -105,6 +105,12 @@
               "devServerTarget": "edit-in-place:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "https://ngneat.github.io/edit-in-place/"
+          }
         }
       }
     },
