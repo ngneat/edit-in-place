@@ -1,6 +1,4 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ContentChild,
   ElementRef,
@@ -25,7 +23,6 @@ import { Mode } from './mode';
   selector: 'editable',
   template: ` <ng-container *ngTemplateOutlet="currentView"></ng-container> `,
   styles: [':host {cursor: pointer;}'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditableComponent implements OnInit {
   @Input() openBindingEvent = this.config.openBindingEvent || 'click';
@@ -44,11 +41,7 @@ export class EditableComponent implements OnInit {
   private readonly editMode$: Observable<boolean> = this.editMode.asObservable();
   public viewHandler: Subscription;
 
-  constructor(
-    private readonly el: ElementRef,
-    @Inject(EDITABLE_CONFIG) readonly config: EditableConfig,
-    private readonly cdr: ChangeDetectorRef
-  ) {}
+  constructor(private readonly el: ElementRef, @Inject(EDITABLE_CONFIG) readonly config: EditableConfig) {}
 
   public get currentView(): TemplateRef<any> {
     if (!this.viewModeTpl && !this.editModeTpl) {
@@ -88,7 +81,6 @@ export class EditableComponent implements OnInit {
   }
 
   public displayEdition(group: boolean = false): void {
-    this.cdr.markForCheck();
     this.mode = Mode.EDIT;
     if (!group) {
       this.editMode.next(true);
@@ -96,13 +88,11 @@ export class EditableComponent implements OnInit {
   }
 
   public saveEdition(): void {
-    this.cdr.markForCheck();
     this.save.next();
     this.mode = Mode.VIEW;
   }
 
   public cancelEdition(): void {
-    this.cdr.markForCheck();
     this.cancel.next();
     this.mode = Mode.VIEW;
   }
