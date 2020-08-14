@@ -253,31 +253,21 @@
   </article>
 </section>
 
-<section editableGroup (save)="updateGroupedEdition()" (cancel)="cancelGroupedEdition()">
+<section
+  editableGroup
+  (editableModeChange)="handleModeChange($event)"
+  (save)="updateGroupedEdition()"
+  (cancel)="cancelGroupedEdition()"
+>
   <h4>Grouped inputs</h4>
   <aside>
-    <button
-      #editbtn
-      data-testid="groupedForm-edit-btn"
-      editableGroupEdit
-      (editionOpened)="display(editbtn, $event, 'view')"
-    >
+    <button *ngIf="mode === 'view'" data-testid="groupedForm-edit-btn" editableGroupEdit>
       Edit
     </button>
-    <button
-      #savebtn
-      data-testid="groupedForm-save-btn"
-      editableGroupSave
-      (editionOpened)="display(savebtn, $event, 'edit')"
-    >
+    <button *ngIf="mode === 'edit'" data-testid="groupedForm-save-btn" editableGroupSave>
       Save
     </button>
-    <button
-      #cancelBtn
-      data-testid="groupedForm-cancel-btn"
-      editableGroupCancel
-      (editionOpened)="display(cancelBtn, $event, 'edit')"
-    >
+    <button *ngIf="mode === 'edit'" data-testid="groupedForm-cancel-btn" editableGroupCancel>
       Cancel
     </button>
   </aside>

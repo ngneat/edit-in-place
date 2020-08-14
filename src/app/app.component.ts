@@ -56,6 +56,7 @@ export class AppComponent implements OnInit {
   public roles: string[] = ['Developer', 'Product Owner', 'UX Designer'];
 
   // multiple form
+  public mode: 'view' | 'edit' = 'view';
   public groupedForm: FormGroup;
   public identity = {
     name: 'John Doe',
@@ -127,14 +128,7 @@ export class AppComponent implements OnInit {
     this.groupedForm.setValue(this.identity);
   }
 
-  display(el: HTMLElement, editionOpened: boolean, mode: string): void {
-    if (mode === 'view') {
-      el.classList.add(!editionOpened ? 'display' : 'hide');
-      el.classList.remove(editionOpened ? 'display' : 'hide');
-    }
-    if (mode === 'edit') {
-      el.classList.add(editionOpened ? 'display' : 'hide');
-      el.classList.remove(!editionOpened ? 'display' : 'hide');
-    }
+  handleModeChange(mode: 'view' | 'edit'): void {
+    this.mode = mode;
   }
 }

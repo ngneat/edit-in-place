@@ -1,4 +1,1 @@
-export enum Mode {
-  VIEW = 'view',
-  EDIT = 'edit',
-}
+export type Mode = 'view' | 'edit';

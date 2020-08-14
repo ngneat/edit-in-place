@@ -245,16 +245,14 @@ You can switch modes by using dedicated directives on html button tag to switch 
 </section>
 ```
 
-In order to display the button accordingly with the active mode, you can use the `(editionOpened)` @Output :
+Add the `(editableModeChange)` event binding to keep track of the active mode.   
+It's triggered by the *editableGroupEdit*, *editableGroupSave* and *editableGroupCancel* directives.
 
 ```html
-<section editableGroup>
-  <button editableGroupEdit (editionOpened)="displayView($event)">Edit</button>
-  <button editableGroupSave (editionOpened)="displayEdition($event)">Save</button>
-  <button editableGroupCancel (editionOpened)="displayEdition($event)">Cancel</button>
-  <editable></editable>
-  <editable></editable>
-  <editable></editable>
+<section (editableModeChange)="handleModeChange($event)">
+    <editable></editable>
+    <editable></editable>
+    <editable></editable>
 </section>
 ```
 
@@ -292,31 +290,23 @@ Overcharges the behavior of children editable Components to work as one entity.
 | ---------------------- | ------------------------- | ------------------------------------------------------------
 | save                   | `void`                    | triggered by the editableGroupSave directive                                                                           |
 | cancel                 | `void`                    | triggered by the editableGroupCancel directive                                                                               |
+| editableModeChange     | `'view'` or `'edit'`      | triggered by the editableGroupEdit, editableGroupSave and editableGroupCancel directives when switching modes                                                                              |
 
 
 #### editableGroupEdit
 
 Listen to a click `MouseEvent` to switch to *editMode*.
 
-| @Output                | Type                      | Description                                                                                                               |
-| ---------------------- | ------------------------- | ------------------------------------------------------------
-| editionOpened          | `boolean`                 | triggered by the editableGroupEdit, editableGroupSave and editableGroupCancel directives when switching modes                                                                              |
 
 #### editableGroupSave
 
 Listen to a click `MouseEvent` to switch to *viewMode* and update the value of the group.
 
-| @Output                | Type                      | Description                                                                                                               |
-| ---------------------- | ------------------------- | ------------------------------------------------------------
-| editionOpened          | `boolean`                 | triggered by the editableGroupEdit, editableGroupSave and editableGroupCancel directives when switching modes                                                                              |
 
 #### editableGroupCancel
 
 Listen to a click `MouseEvent` to switch to *viewMode* without updating the value of the group.
 
-| @Output                | Type                      | Description                                                                                                               |
-| ---------------------- | ------------------------- | ------------------------------------------------------------
-| editionOpened          | `boolean`                 | triggered by the editableGroupEdit, editableGroupSave and editableGroupCancel directives when switching modes                                                                              |
 
 ## Contributors ✨
 

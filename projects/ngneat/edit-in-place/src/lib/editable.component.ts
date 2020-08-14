@@ -36,7 +36,7 @@ export class EditableComponent implements OnInit {
 
   @ViewChild('input') input: ElementRef;
 
-  private mode: Mode = Mode.VIEW;
+  private mode: Mode = 'view';
   private readonly editMode: Subject<boolean> = new Subject<boolean>();
   private readonly editMode$: Observable<boolean> = this.editMode.asObservable();
   public viewHandler: Subscription;
@@ -81,7 +81,7 @@ export class EditableComponent implements OnInit {
   }
 
   public displayEdition(group: boolean = false): void {
-    this.mode = Mode.EDIT;
+    this.mode = 'edit';
     if (!group) {
       this.editMode.next(true);
     }
@@ -89,11 +89,11 @@ export class EditableComponent implements OnInit {
 
   public saveEdition(): void {
     this.save.next();
-    this.mode = Mode.VIEW;
+    this.mode = 'view';
   }
 
   public cancelEdition(): void {
     this.cancel.next();
-    this.mode = Mode.VIEW;
+    this.mode = 'view';
   }
 }
