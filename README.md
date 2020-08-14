@@ -17,6 +17,8 @@
 **Edit in place** is a complete solution to switch modes between a content and a form tag to edit it.  
 Following open/closed principle, the library focus on the switch mecanism, giving you full control on the data you want to update and the content you want to display and the way to edit it.
 
+[Demo](https://ngneat.github.io/edit-in-place)
+
 ## Features
 
 - ✅ Fully customizable
@@ -24,11 +26,12 @@ Following open/closed principle, the library focus on the switch mecanism, givin
 - ✅ Reactive Forms support
 - ✅ Multiple Forms support
 
+
 ## Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Multiple forms](#multiple forms)
+- [Multiple forms](#multiple-forms)
 
 ## Installation
 
