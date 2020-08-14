@@ -256,9 +256,30 @@
 <section editableGroup (save)="updateGroupedEdition()" (cancel)="cancelGroupedEdition()">
   <h4>Grouped inputs</h4>
   <aside>
-    <button data-testid="groupedForm-edit-btn" editableGroup-edit>Edit</button>
-    <button data-testid="groupedForm-save-btn" editableGroup-save>Save</button>
-    <button data-testid="groupedForm-cancel-btn" editableGroup-cancel>Cancel</button>
+    <button
+      #editbtn
+      data-testid="groupedForm-edit-btn"
+      editableGroupEdit
+      (editionOpened)="display(editbtn, $event, 'view')"
+    >
+      Edit
+    </button>
+    <button
+      #savebtn
+      data-testid="groupedForm-save-btn"
+      editableGroupSave
+      (editionOpened)="display(savebtn, $event, 'edit')"
+    >
+      Save
+    </button>
+    <button
+      #cancelBtn
+      data-testid="groupedForm-cancel-btn"
+      editableGroupCancel
+      (editionOpened)="display(cancelBtn, $event, 'edit')"
+    >
+      Cancel
+    </button>
   </aside>
   <form [formGroup]="groupedForm">
     <article>

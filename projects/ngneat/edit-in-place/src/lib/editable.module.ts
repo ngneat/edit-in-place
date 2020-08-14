@@ -12,6 +12,7 @@ import { EditableGroupDirective } from './directives/editable-group.directive';
 import { EditableGroupCancelDirective } from './directives/editable-group-cancel.directive';
 import { EditableGroupSaveDirective } from './directives/editable-group-save.directive';
 import { EditableGroupEditDirective } from './directives/editable-group-edit.directive';
+import { EditableGroupActionDirective } from './directives/editable-group-action.directive';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { EditableGroupEditDirective } from './directives/editable-group-edit.dir
     EditableGroupCancelDirective,
     EditableGroupSaveDirective,
     EditableGroupEditDirective,
+    EditableGroupActionDirective,
   ],
   imports: [CommonModule],
   exports: [

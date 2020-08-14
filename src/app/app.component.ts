@@ -126,4 +126,15 @@ export class AppComponent implements OnInit {
   cancelGroupedEdition(): void {
     this.groupedForm.setValue(this.identity);
   }
+
+  display(el: HTMLElement, editionOpened: boolean, mode: string): void {
+    if (mode === 'view') {
+      el.classList.add(!editionOpened ? 'display' : 'hide');
+      el.classList.remove(editionOpened ? 'display' : 'hide');
+    }
+    if (mode === 'edit') {
+      el.classList.add(editionOpened ? 'display' : 'hide');
+      el.classList.remove(!editionOpened ? 'display' : 'hide');
+    }
+  }
 }

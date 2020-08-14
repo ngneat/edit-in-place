@@ -230,15 +230,28 @@ Add the *editable-group* directive on a parent html tag of your *editable* compo
 > Unlike using a single *editable* component, an *editableGroup* doesn't support `MouseEvent` events on the component to switch modes.
 
 You can switch modes by using dedicated directives on html button tag to switch mode for the whole group :
-- *editableGroup-edit* to switch to *editMode*
-- *editableGroup-save* to save the value of each form tag and switch to *viewMode*
-- *editableGroup-cancel* to switch to *viewMode* without saving the value of each form tag
+- *editableGroupEdit* to switch to *editMode*
+- *editableGroupSave* to save the value of each form tag and switch to *viewMode*
+- *editableGroupCancel* to switch to *viewMode* without saving the value of each form tag
 
 ```html
 <section editableGroup>
-  <button editableGroup-edit>Edit</button>
-  <button editableGroup-save>Save</button>
-  <button editableGroup-cancel>Cancel</button>
+  <button editableGroupEdit>Edit</button>
+  <button editableGroupSave>Save</button>
+  <button editableGroupCancel>Cancel</button>
+  <editable></editable>
+  <editable></editable>
+  <editable></editable>
+</section>
+```
+
+In order to display the button accordingly with the active mode, you can use the `(editionOpened)` @Output :
+
+```html
+<section editableGroup>
+  <button editableGroupEdit (editionOpened)="displayView($event)">Edit</button>
+  <button editableGroupSave (editionOpened)="displayEdition($event)">Save</button>
+  <button editableGroupCancel (editionOpened)="displayEdition($event)">Cancel</button>
   <editable></editable>
   <editable></editable>
   <editable></editable>
@@ -248,7 +261,7 @@ You can switch modes by using dedicated directives on html button tag to switch 
 ### Event emitters
 
 Add the `(save)` event binding to handle the update of the group.   
-It's triggered by the *editableGroup-save* directive.
+It's triggered by the *editableGroupSave* directive.
 
 ```html
 <section (save)="updateGroup()">
@@ -259,7 +272,7 @@ It's triggered by the *editableGroup-save* directive.
 ```
 
 Optionally you can add the `(cancel)` event binding to handle the reset of the value of the group.
-It's triggered by the *editableGroup-cancel* :
+It's triggered by the *editableGroupCancel* :
 
 ```html
 <section (cancel)="cancelUpdate()">
@@ -277,22 +290,33 @@ Overcharges the behavior of children editable Components to work as one entity.
 
 | @Output                | Type                      | Description                                                                                                               |
 | ---------------------- | ------------------------- | ------------------------------------------------------------
-| save                   | `void`                    | triggered by the editableOnSave and editableOnEnter directives and the MouseEvent on closeBindingEvent @Input                                                                               |
-| cancel                 | `void`                    | triggered by the editableCancel and editableOnEscape directives                                                                                 |
+| save                   | `void`                    | triggered by the editableGroupSave directive                                                                           |
+| cancel                 | `void`                    | triggered by the editableGroupCancel directive                                                                               |
 
 
-#### editableGroup-edit
+#### editableGroupEdit
 
 Listen to a click `MouseEvent` to switch to *editMode*.
 
-#### editableGroup-save
+| @Output                | Type                      | Description                                                                                                               |
+| ---------------------- | ------------------------- | ------------------------------------------------------------
+| editionOpened          | `boolean`                 | triggered by the editableGroupEdit, editableGroupSave and editableGroupCancel directives when switching modes                                                                              |
+
+#### editableGroupSave
 
 Listen to a click `MouseEvent` to switch to *viewMode* and update the value of the group.
 
-#### editableGroup-cancel
+| @Output                | Type                      | Description                                                                                                               |
+| ---------------------- | ------------------------- | ------------------------------------------------------------
+| editionOpened          | `boolean`                 | triggered by the editableGroupEdit, editableGroupSave and editableGroupCancel directives when switching modes                                                                              |
+
+#### editableGroupCancel
 
 Listen to a click `MouseEvent` to switch to *viewMode* without updating the value of the group.
 
+| @Output                | Type                      | Description                                                                                                               |
+| ---------------------- | ------------------------- | ------------------------------------------------------------
+| editionOpened          | `boolean`                 | triggered by the editableGroupEdit, editableGroupSave and editableGroupCancel directives when switching modes                                                                              |
 
 ## Contributors ✨
 
