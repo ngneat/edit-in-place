@@ -32,13 +32,11 @@ Following open/closed principle, the library focus on the switch mecanism, givin
 
 ## Installation
 
-### NPM
+`ng add @ngneat/edit-in-place`
 
-`npm install @ngneat/edit-in-place --save-dev`
-
-### Yarn
-
-`yarn add @ngneat/edit-in-place --dev`
+You can provide additional options :
+- --module
+- --project
 
 ## Usage
 
