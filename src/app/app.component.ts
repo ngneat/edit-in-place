@@ -55,8 +55,17 @@ export class AppComponent implements OnInit {
   ];
   public roles: string[] = ['Developer', 'Product Owner', 'UX Designer'];
 
+  // multiple form
+  public groupedForm: FormGroup;
+  public identity = {
+    name: 'John Doe',
+    city: 'London',
+    country: 'England',
+  };
+
   ngOnInit(): void {
     this.formArray = new FormArray(this.toGroups());
+    this.initGroupedForm();
   }
 
   getControl(index: number, field: string): FormControl {
@@ -70,6 +79,14 @@ export class AppComponent implements OnInit {
         role: new FormControl(account.role),
         isActive: new FormControl(account.isActive),
       });
+    });
+  }
+
+  initGroupedForm(): void {
+    this.groupedForm = new FormGroup({
+      name: new FormControl(this.identity.name),
+      city: new FormControl(this.identity.city),
+      country: new FormControl(this.identity.country),
     });
   }
 
@@ -100,5 +117,13 @@ export class AppComponent implements OnInit {
   cancel(index: number, field: string): void {
     const control = this.getControl(index, field);
     control.setValue(this.accounts[index][field]);
+  }
+
+  updateGroupedEdition(): void {
+    this.identity = this.groupedForm.value;
+  }
+
+  cancelGroupedEdition(): void {
+    this.groupedForm.setValue(this.identity);
   }
 }

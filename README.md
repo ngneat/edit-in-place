@@ -22,11 +22,13 @@ Following open/closed principle, the library focus on the switch mecanism, givin
 - ✅ Fully customizable
 - ✅ Manual trigger support 
 - ✅ Reactive Forms support
+- ✅ Multiple Forms support
 
 ## Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
+- [Multiple forms](#multiple forms)
 
 ## Installation
 
@@ -70,8 +72,8 @@ Now you can use the `<editable>` component :
 ### Change the active mode
 
 By default you can switch mode with single clicking :
-- into the viewMode content to switch to editMode
-- outside of the `<editable>` component to switch back to viewMode
+- into the *viewMode* content to switch to *editMode*
+- outside of the *editable* component to switch back to *viewMode*
 
 You can customize the switch behavior by providing a `MouseEvent` type :
 
@@ -104,22 +106,22 @@ export class AppModule {}
 
 ### Event emitters
 
-Add the `(update)` event binding to handle the update of the content.   
-It's triggered by :
-- editableOnEnter directive
-- editableOnUpdate directive
-- closeBinbingEvent @Input MouseEvent
+Add the `(save)` event binding to handle the update of the content.   
+It's triggered by the :
+- *editableOnEnter* directive
+- *editableOnSave* directive
+- *closeBinbingEvent* @Input() `MouseEvent
 
 ```html
-<editable (update)="updateField()">
+<editable (save)="updateField()">
     <!-- content -->
 </editable>
 ```
 
-Optionally you can add the `(cancel)` event binding to handle the reset the value of a formControl.
-It's triggered by :
-- editableCancel directive
-- editableOnEscape directive
+Optionally you can add the `(cancel)` event binding to handle the reset of the value of a formControl.
+It's triggered by the :
+- *editableCancel* directive
+- *editableOnEscape* directive
 
 
 ```html
@@ -132,14 +134,14 @@ It's triggered by :
 
 ### Handle events manually
 
-You canse use the `editableOnUpdate` and `editableOnCancel` directives to trigger the update or the reset of the value on chosen html tags.
+You can use the `editableOnUpdate` and `editableOnCancel` directives to trigger the update or the reset of the value on chosen html tags.
 
 ```html
-<editable (update)="updateField()" (cancel)="resetField()">
+<editable (save)="updateField()" (cancel)="resetField()">
     <!-- viewMode content -->
     <ng-template editMode>
         <input type="text">
-        <button editableOnUpdate>save</button>
+        <button editableOnSave>save</button>
         <button editableOnCancel>cancel</button>    
     </ng-template>
 </editable>
@@ -148,7 +150,7 @@ You canse use the `editableOnUpdate` and `editableOnCancel` directives to trigge
 
 ### Handle focus
 
-As a focusable form tag might be nested or custom, it isn't focused by default when the editMode is displayed.  
+As a focusable form tag might be nested or custom, it isn't focused by default when the *editMode* is displayed.  
 You can add the *editable-focus* directive on the input :
 
 ```html
@@ -171,7 +173,7 @@ You can add the *editable-focus* directive on the input :
 
 | @Output                | Type                      | Description                                                                                                               |
 | ---------------------- | ------------------------- | ------------------------------------------------------------
-| update                 | `void`                    | triggered by the editableOnUpdate and editableOnEnter directives and the MouseEvent on closeBindingEvent @Input                                                                               |
+| save                   | `void`                    | triggered by the editableOnSave and editableOnEnter directives and the MouseEvent on closeBindingEvent @Input                                                                               |
 | cancel                 | `void`                    | triggered by the editableCancel and editableOnEscape directives                                                                                 |
 
 
@@ -179,33 +181,116 @@ You can add the *editable-focus* directive on the input :
 
 #### editableFocusable
 
-focus the host element when switching to editMode (for nested inputs).
+Focus the host element when switching to *editMode* (for nested inputs).
 
 #### editableOnEnter
 
-listen to keyup enter to switch to viewMode and update the value of the viewMode host element.
+Listen to keyup enter to switch to *viewMode* and update the value of the *viewMode* host element.
 
 #### editableOnEscape
 
-listens to keyup escape to switch to viewMode without updating the value of the viewMode host element
+Listen to keyup escape to switch to *viewMode* without updating the value of the *viewMode* host element.
 
-#### EditableOnUpdate
+#### editableOnSave
 
-listens to a MouseEvent on ths host element in order to switch to viewMode and udpate the value of the content of the viewMode host element.
+Listen to a `MouseEvent on ths host element in order to switch to *viewMode* and udpate the value of the content of the *viewMode* host element.
 
 | @Input                 | Type                      | Description                                                  | Default                                                                |
 | ---------------------- | ------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------- |
-| updateEvent            | `string`                  | The MouseEvent type used to trigger the @Output() update     | `click`                                                              |
+| saveEvent              | `string`                  | The MouseEvent type used to trigger the @Output() save       | `click`                                                              |
 
 
-#### EditableOnCancel
+#### editableOnCancel
 
-listens to a MouseEvent on ths host element in order to trigger to switch to viewMode without updating the value of the viewMode host element.
+Listen to a MouseEvent on ths host element in order to trigger to switch to viewMode without updating the value of the viewMode host element.
 
 
 | @Input                 | Type                      | Description                                                  | Default                                                                |
 | ---------------------- | ------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------- |
 | cancelEvent            | `string`                  | The MouseEvent type used to trigger the @Output() cancel     | `click`                                                              |
+
+
+## Multiple forms
+
+**Edit-in-place** also supports to switch between modes for multiple components at once.
+
+Add the *editable-group* directive on a parent html tag of your *editable* components :
+
+```html
+<section editableGroup>
+  <editable></editable>
+  <editable></editable>
+  <editable></editable>
+</section>
+```
+
+### Change the active mode
+
+> Unlike using a single *editable* component, an *editableGroup* doesn't support `MouseEvent` events on the component to switch modes.
+
+You can switch modes by using dedicated directives on html button tag to switch mode for the whole group :
+- *editableGroup-edit* to switch to *editMode*
+- *editableGroup-save* to save the value of each form tag and switch to *viewMode*
+- *editableGroup-cancel* to switch to *viewMode* without saving the value of each form tag
+
+```html
+<section editableGroup>
+  <button editableGroup-edit>Edit</button>
+  <button editableGroup-save>Save</button>
+  <button editableGroup-cancel>Cancel</button>
+  <editable></editable>
+  <editable></editable>
+  <editable></editable>
+</section>
+```
+
+### Event emitters
+
+Add the `(save)` event binding to handle the update of the group.   
+It's triggered by the *editableGroup-save* directive.
+
+```html
+<section (save)="updateGroup()">
+    <editable></editable>
+    <editable></editable>
+    <editable></editable>
+</section>
+```
+
+Optionally you can add the `(cancel)` event binding to handle the reset of the value of the group.
+It's triggered by the *editableGroup-cancel* :
+
+```html
+<section (cancel)="cancelUpdate()">
+    <editable></editable>
+    <editable></editable>
+    <editable></editable>
+</section>
+```
+
+## Directives
+
+#### editableGroup
+
+Overcharges the behavior of children editable Components to work as one entity.
+
+| @Output                | Type                      | Description                                                                                                               |
+| ---------------------- | ------------------------- | ------------------------------------------------------------
+| save                   | `void`                    | triggered by the editableOnSave and editableOnEnter directives and the MouseEvent on closeBindingEvent @Input                                                                               |
+| cancel                 | `void`                    | triggered by the editableCancel and editableOnEscape directives                                                                                 |
+
+
+#### editableGroup-edit
+
+Listen to a click `MouseEvent` to switch to *editMode*.
+
+#### editableGroup-save
+
+Listen to a click `MouseEvent` to switch to *viewMode* and update the value of the group.
+
+#### editableGroup-cancel
+
+Listen to a click `MouseEvent` to switch to *viewMode* without updating the value of the group.
 
 
 ## Contributors ✨

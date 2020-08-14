@@ -5,7 +5,7 @@ import { EditableComponent } from '../editable.component';
   selector: '[editableOnEscape]',
 })
 export class EditableOnEscapeDirective {
-  constructor(private editable: EditableComponent) {}
+  constructor(private readonly editable: EditableComponent) {}
 
   @HostListener('keyup.escape')
   onEnter(): void {

@@ -11,7 +11,7 @@
     <editable
       data-testid="sample-input"
       [openBindingEvent]="openBindingEvent"
-      (update)="updateSingleField('inputText', 'inputControl')"
+      (save)="updateSingleField('inputText', 'inputControl')"
       (cancel)="cancelSingleField('inputText', 'inputControl')"
     >
       <ng-template viewMode>
@@ -36,7 +36,7 @@
   <article>
     <editable
       data-testid="sample-input-click"
-      (update)="updateSingleField('inputText', 'inputControl')"
+      (save)="updateSingleField('inputText', 'inputControl')"
       (cancel)="cancelSingleField('inputText', 'inputControl')"
     >
       <ng-template viewMode>
@@ -56,7 +56,7 @@
       data-testid="sample-input-hover"
       openBindingEvent="mouseover"
       closeBindingEvent="mouseout"
-      (update)="updateSingleField('inputText', 'inputControl')"
+      (save)="updateSingleField('inputText', 'inputControl')"
       (cancel)="cancelSingleField('inputText', 'inputControl')"
     >
       <ng-template viewMode>
@@ -75,7 +75,7 @@
     <editable
       data-testid="sample-input-focus"
       [openBindingEvent]="openBindingEvent"
-      (update)="updateSingleField('inputFocusText', 'inputFocusControl')"
+      (save)="updateSingleField('inputFocusText', 'inputFocusControl')"
       (cancel)="cancelSingleField('inputFocusText', 'inputFocusControl')"
     >
       <ng-template viewMode>
@@ -100,7 +100,7 @@
     <editable
       data-testid="sampleForm-btn"
       [openBindingEvent]="openBindingEvent"
-      (update)="updateSingleField('inputButtonsText', 'inputButtonsControl')"
+      (save)="updateSingleField('inputButtonsText', 'inputButtonsControl')"
       (cancel)="cancelSingleField('inputButtonsText', 'inputButtonsControl')"
     >
       <ng-template viewMode>
@@ -108,7 +108,7 @@
       </ng-template>
       <ng-template editMode>
         <input data-testid="sampleForm-btn-edit" placeholder="Title" type="text" [formControl]="inputButtonsControl" />
-        <button data-testid="sampleForm-save-btn" editableOnUpdate>Save</button>
+        <button data-testid="sampleForm-save-btn" editableOnSave>Save</button>
         <button data-testid="sampleForm-cancel-btn" class="cancel-btn" editableOnCancel>Cancel</button>
       </ng-template>
     </editable>
@@ -121,7 +121,7 @@
     <editable
       data-testid="sample-select"
       [openBindingEvent]="openBindingEvent"
-      (update)="updateSingleField('selectText', 'selectControl')"
+      (save)="updateSingleField('selectText', 'selectControl')"
       (cancel)="cancelSingleField('selectText', 'selectControl')"
     >
       <ng-template viewMode>
@@ -142,7 +142,7 @@
     <editable
       data-testid="sample-checkbox"
       [openBindingEvent]="openBindingEvent"
-      (update)="updateSingleField('checkboxText', 'checkboxControl')"
+      (save)="updateSingleField('checkboxText', 'checkboxControl')"
       (cancel)="cancelSingleField('checkboxText', 'checkboxControl')"
     >
       <ng-template viewMode>
@@ -161,7 +161,7 @@
     <editable
       data-testid="sample-range"
       [openBindingEvent]="openBindingEvent"
-      (update)="updateSingleField('rangeText', 'rangeControl')"
+      (save)="updateSingleField('rangeText', 'rangeControl')"
       (cancel)="cancelSingleField('rangeText', 'rangeControl')"
     >
       <ng-template viewMode>
@@ -180,7 +180,7 @@
     <editable
       data-testid="sample-radio"
       [openBindingEvent]="openBindingEvent"
-      (update)="updateSingleField('radioText', 'radioControl')"
+      (save)="updateSingleField('radioText', 'radioControl')"
       (cancel)="cancelSingleField('radioText', 'radioControl')"
     >
       <ng-template viewMode>
@@ -213,7 +213,7 @@
       </tr>
       <tr *ngFor="let account of accounts; index as index">
         <td>
-          <editable data-testid="table-name" (update)="updateField(index, 'name')" (cancel)="cancel(index, 'name')">
+          <editable data-testid="table-name" (save)="updateField(index, 'name')" (cancel)="cancel(index, 'name')">
             <ng-template viewMode>
               {{ account.name }}
             </ng-template>
@@ -223,7 +223,7 @@
           </editable>
         </td>
         <td>
-          <editable data-testid="table-role" (update)="updateField(index, 'role')" (cancel)="cancel(index, 'role')">
+          <editable data-testid="table-role" (save)="updateField(index, 'role')" (cancel)="cancel(index, 'role')">
             <ng-template viewMode>
               {{ account.role }}
             </ng-template>
@@ -237,7 +237,7 @@
         <td>
           <editable
             data-testid="table-active"
-            (update)="updateField(index, 'isActive')"
+            (save)="updateField(index, 'isActive')"
             (cancel)="cancel(index, 'isActive')"
           >
             <ng-template viewMode>
@@ -251,6 +251,68 @@
       </tr>
     </table>
   </article>
+</section>
+
+<section editableGroup (save)="updateGroupedEdition()" (cancel)="cancelGroupedEdition()">
+  <h4>Grouped inputs</h4>
+  <aside>
+    <button data-testid="groupedForm-edit-btn" editableGroup-edit>Edit</button>
+    <button data-testid="groupedForm-save-btn" editableGroup-save>Save</button>
+    <button data-testid="groupedForm-cancel-btn" editableGroup-cancel>Cancel</button>
+  </aside>
+  <form [formGroup]="groupedForm">
+    <article>
+      <editable data-testid="grouped-input-1">
+        <ng-template viewMode>
+          {{ identity.name }}
+        </ng-template>
+        <ng-template editMode>
+          <input
+            editableOnEnter
+            editableOnEscape
+            data-testid="grouped-input-edit-1"
+            placeholder="Name"
+            type="text"
+            formControlName="name"
+          />
+        </ng-template>
+      </editable>
+    </article>
+    <article>
+      <editable data-testid="grouped-input-2">
+        <ng-template viewMode>
+          {{ identity.city }}
+        </ng-template>
+        <ng-template editMode>
+          <input
+            editableOnEnter
+            editableOnEscape
+            data-testid="grouped-input-edit-2"
+            placeholder="City"
+            type="text"
+            formControlName="city"
+          />
+        </ng-template>
+      </editable>
+    </article>
+    <article>
+      <editable data-testid="grouped-input-3">
+        <ng-template viewMode>
+          {{ identity.country }}
+        </ng-template>
+        <ng-template editMode>
+          <input
+            editableOnEnter
+            editableOnEscape
+            data-testid="grouped-input-edit-3"
+            placeholder="Country"
+            type="text"
+            formControlName="country"
+          />
+        </ng-template>
+      </editable>
+    </article>
+  </form>
 </section>
 
 <div data-testid="outside"></div>

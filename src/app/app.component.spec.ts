@@ -199,4 +199,65 @@ describe('GIVEN AppComponent', () => {
       });
     });
   });
+
+  describe('Multiple forms', () => {
+    describe('WHEN clicking on the edit button', () => {
+      it('THEN should display the form tags of the whole form', () => {
+        expect(spectator.query(byTestId('groupedForm-edit-btn'))).toBeVisible();
+        expect(spectator.query(byTestId('grouped-input-edit-1'))).not.toBeVisible();
+        expect(spectator.query(byTestId('grouped-input-edit-2'))).not.toBeVisible();
+        expect(spectator.query(byTestId('grouped-input-edit-3'))).not.toBeVisible();
+        spectator.click(byTestId('groupedForm-edit-btn'));
+        expect(spectator.query(byTestId('groupedForm-edit-btn'))).not.toBeVisible();
+        expect(spectator.query(byTestId('groupedForm-save-btn'))).toBeVisible();
+        expect(spectator.query(byTestId('groupedForm-cancel-btn'))).toBeVisible();
+        expect(spectator.query(byTestId('grouped-input-edit-1'))).toBeVisible();
+        expect(spectator.query(byTestId('grouped-input-edit-2'))).toBeVisible();
+        expect(spectator.query(byTestId('grouped-input-edit-3'))).toBeVisible();
+      });
+    });
+
+    describe('WHEN clicking on the save button', () => {
+      it('THEN should display the edit button', () => {
+        expect(spectator.query(byTestId('groupedForm-edit-btn'))).toBeVisible();
+        spectator.click(byTestId('groupedForm-edit-btn'));
+        expect(spectator.query(byTestId('groupedForm-edit-btn'))).not.toBeVisible();
+        spectator.click(byTestId('groupedForm-save-btn'));
+        expect(spectator.query(byTestId('groupedForm-edit-btn'))).toBeVisible();
+      });
+    });
+
+    describe('WHEN clicking on the cancel button', () => {
+      it('THEN should display the edit button', () => {
+        expect(spectator.query(byTestId('groupedForm-edit-btn'))).toBeVisible();
+        spectator.click(byTestId('groupedForm-edit-btn'));
+        expect(spectator.query(byTestId('groupedForm-edit-btn'))).not.toBeVisible();
+        spectator.click(byTestId('groupedForm-cancel-btn'));
+        expect(spectator.query(byTestId('groupedForm-edit-btn'))).toBeVisible();
+      });
+    });
+
+    describe('WHEN clicking on the cancel button', () => {
+      it('THEN should hide the edit content', () => {
+        spectator.click(byTestId('groupedForm-edit-btn'));
+        spectator.click(byTestId('groupedForm-cancel-btn'));
+        expect(spectator.query(byTestId('grouped-input-edit-1'))).not.toBeVisible();
+        expect(spectator.query(byTestId('grouped-input-edit-2'))).not.toBeVisible();
+        expect(spectator.query(byTestId('grouped-input-edit-3'))).not.toBeVisible();
+        spectator.click(byTestId('groupedForm-edit-btn'));
+      });
+    });
+
+    describe('WHEN saving the form', () => {
+      it('THEN should update the displayed value', () => {
+        expect(spectator.query(byTestId('groupedForm-edit-btn'))).toBeVisible();
+        expect(spectator.query(byTestId('grouped-input-1'))).toContainText('John Doe');
+        spectator.click(byTestId('groupedForm-edit-btn'));
+        expect(spectator.query(byTestId('grouped-input-edit-1'))).toBeVisible();
+        spectator.typeInElement('HellBoy', byTestId('grouped-input-edit-1'));
+        spectator.click(byTestId('groupedForm-save-btn'));
+        expect(spectator.query(byTestId('grouped-input-1'))).toContainText('HellBoy');
+      });
+    });
+  });
 });

@@ -5,16 +5,16 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @UntilDestroy()
 @Directive({
-  selector: '[editableOnUpdate]',
+  selector: '[editableOnSave]',
 })
-export class EditableUpdateDirective implements OnInit {
-  @Input() updateEvent = 'click';
+export class EditableSaveDirective implements OnInit {
+  @Input() saveEvent = 'click';
 
-  constructor(private editable: EditableComponent, private el: ElementRef) {}
+  constructor(private readonly editable: EditableComponent, private readonly el: ElementRef) {}
 
   ngOnInit(): void {
-    fromEvent(this.el.nativeElement, this.updateEvent)
+    fromEvent(this.el.nativeElement, this.saveEvent)
       .pipe(untilDestroyed(this))
-      .subscribe(() => this.editable.updateEdition());
+      .subscribe(() => this.editable.saveEdition());
   }
 }

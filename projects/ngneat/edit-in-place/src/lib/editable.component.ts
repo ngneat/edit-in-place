@@ -1,4 +1,6 @@
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChild,
   ElementRef,
@@ -10,24 +12,26 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { fromEvent, Observable, Subject } from 'rxjs';
+import { fromEvent, Observable, Subject, Subscription } from 'rxjs';
 import { filter, switchMapTo, take } from 'rxjs/operators';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ViewModeDirective } from './directives/view-mode.directive';
 import { EditModeDirective } from './directives/edit-mode.directive';
 import { EDITABLE_CONFIG, EditableConfig } from './editable.config';
+import { Mode } from './mode';
 
 @UntilDestroy()
 @Component({
   selector: 'editable',
   template: ` <ng-container *ngTemplateOutlet="currentView"></ng-container> `,
   styles: [':host {cursor: pointer;}'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditableComponent implements OnInit {
   @Input() openBindingEvent = this.config.openBindingEvent || 'click';
   @Input() closeBindingEvent = this.config.closeBindingEvent || 'click';
 
-  @Output() update: EventEmitter<void> = new EventEmitter<void>();
+  @Output() save: EventEmitter<void> = new EventEmitter<void>();
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
 
   @ContentChild(ViewModeDirective) viewModeTpl: ViewModeDirective;
@@ -35,11 +39,16 @@ export class EditableComponent implements OnInit {
 
   @ViewChild('input') input: ElementRef;
 
-  private mode: 'edit' | 'view' = 'view';
-  private editMode: Subject<boolean> = new Subject<boolean>();
-  private editMode$: Observable<boolean> = this.editMode.asObservable();
+  private mode: Mode = Mode.VIEW;
+  private readonly editMode: Subject<boolean> = new Subject<boolean>();
+  private readonly editMode$: Observable<boolean> = this.editMode.asObservable();
+  public viewHandler: Subscription;
 
-  constructor(readonly el: ElementRef, @Inject(EDITABLE_CONFIG) readonly config: EditableConfig) {}
+  constructor(
+    private readonly el: ElementRef,
+    @Inject(EDITABLE_CONFIG) readonly config: EditableConfig,
+    private readonly cdr: ChangeDetectorRef
+  ) {}
 
   public get currentView(): TemplateRef<any> {
     if (!this.viewModeTpl && !this.editModeTpl) {
@@ -62,11 +71,10 @@ export class EditableComponent implements OnInit {
   }
 
   private handleViewMode(): void {
-    fromEvent(this.element, this.openBindingEvent)
+    this.viewHandler = fromEvent(this.element, this.openBindingEvent)
       .pipe(untilDestroyed(this))
       .subscribe(() => {
-        this.mode = 'edit';
-        this.editMode.next(true);
+        this.displayEdition();
       });
   }
 
@@ -76,16 +84,26 @@ export class EditableComponent implements OnInit {
       take(1)
     );
 
-    this.editMode$.pipe(switchMapTo(clickOutside$), untilDestroyed(this)).subscribe(() => this.updateEdition());
+    this.editMode$.pipe(switchMapTo(clickOutside$), untilDestroyed(this)).subscribe(() => this.saveEdition());
   }
 
-  public updateEdition(): void {
-    this.update.next();
-    this.mode = 'view';
+  public displayEdition(group: boolean = false): void {
+    this.cdr.markForCheck();
+    this.mode = Mode.EDIT;
+    if (!group) {
+      this.editMode.next(true);
+    }
+  }
+
+  public saveEdition(): void {
+    this.cdr.markForCheck();
+    this.save.next();
+    this.mode = Mode.VIEW;
   }
 
   public cancelEdition(): void {
+    this.cdr.markForCheck();
     this.cancel.next();
-    this.mode = 'view';
+    this.mode = Mode.VIEW;
   }
 }

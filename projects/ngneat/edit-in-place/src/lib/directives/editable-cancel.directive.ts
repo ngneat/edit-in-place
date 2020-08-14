@@ -10,7 +10,7 @@ import { fromEvent } from 'rxjs';
 export class EditableCancelDirective implements OnInit {
   @Input() cancelEvent = 'click';
 
-  constructor(private editable: EditableComponent, private el: ElementRef) {}
+  constructor(private readonly editable: EditableComponent, private el: ElementRef) {}
 
   ngOnInit(): void {
     fromEvent(this.el.nativeElement, this.cancelEvent)

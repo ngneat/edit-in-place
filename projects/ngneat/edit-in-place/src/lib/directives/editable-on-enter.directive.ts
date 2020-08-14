@@ -5,10 +5,10 @@ import { EditableComponent } from '../editable.component';
   selector: '[editableOnEnter]',
 })
 export class EditableOnEnterDirective {
-  constructor(private editable: EditableComponent) {}
+  constructor(private readonly editable: EditableComponent) {}
 
   @HostListener('keyup.enter')
   onEnter(): void {
-    this.editable.updateEdition();
+    this.editable.saveEdition();
   }
 }
