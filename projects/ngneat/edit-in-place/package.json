@@ -1,17 +1,21 @@
 {
   "name": "@ngneat/edit-in-place",
   "version": "1.0.0",
+  "description": "Edit in place solution for Angular Applications",
+  "schematics": "./schematics/collection.json",
   "peerDependencies": {
-    "@angular/common": "^10.0.4",
-    "@angular/core": "^10.0.4"
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"
   },
   "keywords": [
     "angular",
-    "angular 2",
-    "edit-in-place"
+    "angular reactive forms",
+    "reactive forms",
+    "edit-in-place",
+    "edit on click"
   ],
   "license": "MIT",
   "publishConfig": {
@@ -24,5 +28,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/ngneat/edit-in-place"
+  },
+  "author": {
+    "name": "Gérôme Grignon",
+    "url": "https://github.com/geromegrignon"
   }
 }
