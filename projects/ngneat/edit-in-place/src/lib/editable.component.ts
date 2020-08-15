@@ -5,26 +5,25 @@ import {
   EventEmitter,
   Inject,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   TemplateRef,
   ViewChild,
 } from '@angular/core';
 import { fromEvent, Observable, Subject, Subscription } from 'rxjs';
-import { filter, switchMapTo, take } from 'rxjs/operators';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { filter, switchMapTo, take, takeUntil } from 'rxjs/operators';
 import { ViewModeDirective } from './directives/view-mode.directive';
 import { EditModeDirective } from './directives/edit-mode.directive';
 import { EDITABLE_CONFIG, EditableConfig } from './editable.config';
 import { Mode } from './mode';
 
-@UntilDestroy()
 @Component({
   selector: 'editable',
   template: ` <ng-container *ngTemplateOutlet="currentView"></ng-container> `,
   styles: [':host {cursor: pointer;}'],
 })
-export class EditableComponent implements OnInit {
+export class EditableComponent implements OnInit, OnDestroy {
   @Input() openBindingEvent = this.config.openBindingEvent || 'click';
   @Input() closeBindingEvent = this.config.closeBindingEvent || 'click';
 
@@ -40,6 +39,7 @@ export class EditableComponent implements OnInit {
   private readonly editMode: Subject<boolean> = new Subject<boolean>();
   private readonly editMode$: Observable<boolean> = this.editMode.asObservable();
   public viewHandler: Subscription;
+  private destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private readonly el: ElementRef, @Inject(EDITABLE_CONFIG) readonly config: EditableConfig) {}
 
@@ -63,9 +63,13 @@ export class EditableComponent implements OnInit {
     this.handleEditMode();
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+  }
+
   private handleViewMode(): void {
     this.viewHandler = fromEvent(this.element, this.openBindingEvent)
-      .pipe(untilDestroyed(this))
+      .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.displayEdition();
       });
@@ -77,7 +81,7 @@ export class EditableComponent implements OnInit {
       take(1)
     );
 
-    this.editMode$.pipe(switchMapTo(clickOutside$), untilDestroyed(this)).subscribe(() => this.saveEdition());
+    this.editMode$.pipe(switchMapTo(clickOutside$), takeUntil(this.destroy$)).subscribe(() => this.saveEdition());
   }
 
   public displayEdition(group: boolean = false): void {
