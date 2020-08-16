@@ -1,7 +1,7 @@
 {
   "name": "@ngneat/edit-in-place",
   "version": "1.0.0",
-  "description": "Edit in place solution for Angular Applications",
+  "description": "A flexible and unopinionated edit in place library for Angular applications",
   "schematics": "./schematics/collection.json",
   "peerDependencies": {
     "@angular/common": "^8.0.0",
