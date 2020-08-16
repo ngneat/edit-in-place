@@ -8,14 +8,15 @@
 [![commitizen](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)]()
 [![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)]()
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-2)
 [![ngneat](https://img.shields.io/badge/@-ngneat-383636?style=flat-square&labelColor=8f68d4)](https://github.com/ngneat/)
 [![spectator](https://img.shields.io/badge/tested%20with-spectator-2196F3.svg?style=flat-square)]()
 
-> Simplify the edit in place for Angular applications
+> A flexible and unopinionated edit in place library for Angular applications
 
-**Edit in place** is a complete solution to switch modes between a content and a form tag to edit it.  
-Following open/closed principle, the library focus on the switch mecanism, giving you full control on the data you want to update and the content you want to display and the way to edit it.
+Edit in place is a complete solution for switching modes between static content and an editable control that allows editing it.
+
+Following open/closed principle, the library focuses on the switch mechanism, giving you full control of the data you want to update and the content you want to display and how to edit it.
 
 [Demo](https://ngneat.github.io/edit-in-place)
 
@@ -26,20 +27,9 @@ Following open/closed principle, the library focus on the switch mecanism, givin
 - ✅ Reactive Forms support
 - ✅ Multiple Forms support
 
-
-## Table of Contents
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [Multiple forms](#multiple-forms)
-
 ## Installation
 
 `ng add @ngneat/edit-in-place`
-
-You can provide additional options :
-- --module
-- --project
 
 ## Usage
 
@@ -56,45 +46,42 @@ import { EditableModule } from '@ngneat/edit-in-place';
 export class AppModule {}
 ```
 
-Now you can use the `<editable>` component :
+Now you can use the `<editable>` component:
 
 ```html
 <editable>
-    <ng-template viewMode>
-        <!-- content to display -->
-    </ng-template>
-    <ng-template editMode>
-        <!-- edit content -->
-    </ng-template>
+  <ng-template viewMode>
+     <!-- content to display -->
+  </ng-template>
+  <ng-template editMode>
+    <!-- edit content -->
+  </ng-template>
 </editable>
 ```
 
 
-### Change the active mode
+### Changing the Active Mode
 
-By default you can switch mode with single clicking :
-- into the *viewMode* content to switch to *editMode*
-- outside of the *editable* component to switch back to *viewMode*
+Click on the `viewMode` template to switch it to `editMode` or click outside the editable component to switch back to `viewMode`.
 
-You can customize the switch behavior by providing a `MouseEvent` type :
+You can customize the switch trigger by providing a `MouseEvent` type:
 
 ```html
-<editable 
-  openBindingEvent="dblclick"
-  closeBindingEvent="dblclick"
->
+<editable openBindingEvent="dblclick"
+          closeBindingEvent="dblclick">
     <!-- content -->
 </editable>
 ```
 
-You can set this value globally inside the providers array of your `AppModule` :
+You can set this value globally by providing it in the `EDITABLE_CONFIG` provider:
 
 ```typescript
 @NgModule({
   ...
   providers: [
     {
-      provide: EDITABLE_CONFIG, useValue: {
+      provide: EDITABLE_CONFIG, 
+      useValue: {
         openBindingEvent: 'dblclick',
         closeBindingEvent: 'dblclick',
       } as EditableConfig
@@ -105,69 +92,76 @@ export class AppModule {}
 ```
 
 
-### Event emitters
+## Handle Events Manually
 
-Add the `(save)` event binding to handle the update of the content.   
-It's triggered by the :
-- *editableOnEnter* directive
-- *editableOnSave* directive
-- *closeBinbingEvent* @Input() `MouseEvent
-
-```html
-<editable (save)="updateField()">
-    <!-- content -->
-</editable>
-```
-
-Optionally you can add the `(cancel)` event binding to handle the reset of the value of a formControl.
-It's triggered by the :
-- *editableCancel* directive
-- *editableOnEscape* directive
-
-
-```html
-<editable (cancel)="resetField()">
-    <!-- content -->
-</editable>
-```
-
-## Customization
-
-### Handle events manually
-
-You can use the `editableOnUpdate` and `editableOnCancel` directives to trigger the update or the reset of the value on chosen html tags.
+You can use the `editableOnUpdate` and `editableOnCancel` directives to trigger the update or the reset of the value on chosen elements.
 
 ```html
 <editable (save)="updateField()" (cancel)="resetField()">
-    <!-- viewMode content -->
-    <ng-template editMode>
-        <input type="text">
-        <button editableOnSave>save</button>
-        <button editableOnCancel>cancel</button>    
-    </ng-template>
+  <ng-template viewMode>...</ng-template>
+
+  <ng-template editMode>
+    <input formControlName="name">
+    <button editableOnSave>Save</button>
+    <button editableOnCancel>Cancel</button>    
+  </ng-template>
 </editable>
 ```
 
+## Handle Focus
 
-### Handle focus
+As a focusable form tag might be nested or custom, it isn't focused by default when the `editMode` is displayed.
 
-As a focusable form tag might be nested or custom, it isn't focused by default when the *editMode* is displayed.  
-You can add the *editable-focus* directive on the input :
+To make it focusable, you can add the `editableFocus` directive on the input:
+
+```html
+<editable>
+
+  <ng-template viewMode>
+    ... 
+  </ng-template>
+
+  <ng-template editMode>
+    <input editableFocusable formControlName="name">   
+  </ng-template>
+</editable>
+```
+
+## Events
+
+Add the `(save)` event binding to handle the update of the content. 
+
+```html
+<editable (save)="updateField()">
+   ...
+</editable>
+```
+
+The following actions will trigger this event:
+
+- `editableOnEnter` directive
+- `editableOnSave` directive
+- `closeBindingEvent` @Input() MouseEvent
+
+
+Optionally you can add the `(cancel)` event binding to handle the reset of the value of a formControl:
 
 ```html
 <editable (cancel)="resetField()">
-    <!-- viewMode content -->
-    <ng-template editMode>
-        <input editableFocusable type="text">   
-    </ng-template>
+  ...
 </editable>
 ```
+
+The following actions will trigger this event:
+
+- `editableCancel` directive
+- `editableOnEscape` directive
 
 ## Inputs
 
 | @Input                 | Type                      | Description                                                  | Default                                                                |
 | ---------------------- | ------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------- |
-| openBinbindEvent       | `string`                  | The MouseEvent type to display the editMode                  | `click`                                                              |
+| openBindingEvent       | `string`                  | The MouseEvent type to display the editMode                  | `click`                                                              |
 | closeBindingEvent      | `string`                  | The MouseEvent type to display the viewMode                  | `click`                                                                 |
 
 ## Outputs
@@ -182,19 +176,19 @@ You can add the *editable-focus* directive on the input :
 
 #### editableFocusable
 
-Focus the host element when switching to *editMode* (for nested inputs).
+Focus the host element when switching to `editMode` (for nested inputs).
 
 #### editableOnEnter
 
-Listen to keyup enter to switch to *viewMode* and update the value of the *viewMode* host element.
+Listen to keyup `enter` to switch to `viewMode` and update the value of the `viewMode` host element.
 
 #### editableOnEscape
 
-Listen to keyup escape to switch to *viewMode* without updating the value of the *viewMode* host element.
+Listen to keyup `escape` to switch to `viewMode` without updating the value of the `viewMode` host element.
 
 #### editableOnSave
 
-Listen to a `MouseEvent on ths host element in order to switch to *viewMode* and udpate the value of the content of the *viewMode* host element.
+Listen to a `MouseEvent` on ths host element in order to switch to `viewMode` and udpate the value of the content of the `viewMode`*host element.
 
 | @Input                 | Type                      | Description                                                  | Default                                                                |
 | ---------------------- | ------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------- |
@@ -203,7 +197,7 @@ Listen to a `MouseEvent on ths host element in order to switch to *viewMode* and
 
 #### editableOnCancel
 
-Listen to a MouseEvent on ths host element in order to trigger to switch to viewMode without updating the value of the viewMode host element.
+Listen to a `MouseEvent` on ths host element in order to trigger to switch to `viewMode` without updating the value of the `viewMode` host element.
 
 
 | @Input                 | Type                      | Description                                                  | Default                                                                |
@@ -211,11 +205,11 @@ Listen to a MouseEvent on ths host element in order to trigger to switch to view
 | cancelEvent            | `string`                  | The MouseEvent type used to trigger the @Output() cancel     | `click`                                                              |
 
 
-## Multiple forms
+## Multiple Forms Usage
 
-**Edit-in-place** also supports to switch between modes for multiple components at once.
+edit-in-place also supports switching between modes for multiple components at once.
 
-Add the *editable-group* directive on a parent html tag of your *editable* components :
+Add the `editableGroup` directive on a parent html tag of your `editable` components:
 
 ```html
 <section editableGroup>
@@ -225,14 +219,15 @@ Add the *editable-group* directive on a parent html tag of your *editable* compo
 </section>
 ```
 
-### Change the active mode
+### Changing the Active Mode
 
-> Unlike using a single *editable* component, an *editableGroup* doesn't support `MouseEvent` events on the component to switch modes.
+> Unlike using a single `editable` component, an `editableGroup` doesn't support `MouseEvent` events on the component to switch modes.
 
-You can switch modes by using dedicated directives on html button tag to switch mode for the whole group :
-- *editableGroupEdit* to switch to *editMode*
-- *editableGroupSave* to save the value of each form tag and switch to *viewMode*
-- *editableGroupCancel* to switch to *viewMode* without saving the value of each form tag
+You can switch modes by using dedicated directives on html button tag to switch mode for the whole group:
+
+- `editableGroupEdit` to switch to `editMode`
+- `editableGroupSave` to save the value of each form tag and switch to `viewMode`
+- `editableGroupCancel` to switch to `viewMode` without saving the value of each form tag
 
 ```html
 <section editableGroup>
@@ -246,37 +241,37 @@ You can switch modes by using dedicated directives on html button tag to switch 
 ```
 
 Add the `(editableModeChange)` event binding to keep track of the active mode.   
-It's triggered by the *editableGroupEdit*, *editableGroupSave* and *editableGroupCancel* directives.
+
+It's triggered by the `editableGroupEdit`, `editableGroupSave` and `editableGroupCancel` directives.
 
 ```html
 <section (editableModeChange)="handleModeChange($event)">
-    <editable></editable>
-    <editable></editable>
-    <editable></editable>
+  <editable></editable>
+  <editable></editable>
+  <editable></editable>
 </section>
 ```
 
-### Event emitters
-
 Add the `(save)` event binding to handle the update of the group.   
-It's triggered by the *editableGroupSave* directive.
+It's triggered by the `editableGroupSave` directive:
 
 ```html
 <section (save)="updateGroup()">
-    <editable></editable>
-    <editable></editable>
-    <editable></editable>
+  <editable></editable>
+  <editable></editable>
+  <editable></editable>
 </section>
 ```
 
 Optionally you can add the `(cancel)` event binding to handle the reset of the value of the group.
-It's triggered by the *editableGroupCancel* :
+
+It's triggered by the `editableGroupCancel`:
 
 ```html
 <section (cancel)="cancelUpdate()">
-    <editable></editable>
-    <editable></editable>
-    <editable></editable>
+  <editable></editable>
+  <editable></editable>
+  <editable></editable>
 </section>
 ```
 
@@ -318,6 +313,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://gerome-dev.netlify.com/"><img src="https://avatars0.githubusercontent.com/u/32737308?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Gérôme Grignon</b></sub></a><br /><a href="https://github.com/@ngneat/edit-in-place/commits?author=geromegrignon" title="Code">💻</a> <a href="https://github.com/@ngneat/edit-in-place/commits?author=geromegrignon" title="Documentation">📖</a> <a href="#ideas-geromegrignon" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://www.netbasal.com/"><img src="https://avatars1.githubusercontent.com/u/6745730?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Netanel Basal</b></sub></a><br /><a href="#blog-NetanelBasal" title="Blogposts">📝</a> <a href="https://github.com/@ngneat/edit-in-place/commits?author=NetanelBasal" title="Documentation">📖</a> <a href="#ideas-NetanelBasal" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
 
