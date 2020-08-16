@@ -48,17 +48,33 @@ export class AppModule {}
 
 Now you can use the `<editable>` component:
 
-```html
-<editable>
-  <ng-template viewMode>
-     <!-- content to display -->
-  </ng-template>
-  <ng-template editMode>
-    <!-- edit content -->
-  </ng-template>
-</editable>
+```ts
+@Component({
+  template: `
+    <editable (save)="update()" (cancel)="cancel()">
+      <ng-template viewMode>{{ value }}</ng-template>
+
+      <ng-template editMode>
+        <input editableOnEnter editableOnEscape [formControl]="control" />
+      </ng-template>
+    </editable>
+  `
+})
+class MyComponent {
+  value = 'foo';
+  control = new FormControl(this.value);
+
+  update() {
+    this.value = this.control.value;
+  }
+
+  cancel() {
+    this.control.setValue(this.value);
+  }
+}
 ```
 
+For more complex examples, check out the [playground](https://github.com/ngneat/edit-in-place/blob/master/src/app/app.component.html).
 
 ### Changing the Active Mode
 
@@ -69,7 +85,7 @@ You can customize the switch trigger by providing a `MouseEvent` type:
 ```html
 <editable openBindingEvent="dblclick"
           closeBindingEvent="dblclick">
-    <!-- content -->
+    ...
 </editable>
 ```
 
