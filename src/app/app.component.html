@@ -241,7 +241,8 @@
             (cancel)="cancel(index, 'isActive')"
           >
             <ng-template viewMode>
-              {{ account.isActive }}
+              <!-- nested value for testing purposes -->
+              <span>{{ account.isActive }}</span>
             </ng-template>
             <ng-template editMode>
               <input placeholder="isActive" type="checkbox" [formControl]="getControl(index, 'isActive')" />

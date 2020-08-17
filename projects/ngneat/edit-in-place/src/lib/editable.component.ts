@@ -9,10 +9,9 @@ import {
   OnInit,
   Output,
   TemplateRef,
-  ViewChild,
 } from '@angular/core';
 import { fromEvent, Observable, Subject, Subscription } from 'rxjs';
-import { filter, switchMapTo, take, takeUntil } from 'rxjs/operators';
+import { filter, skip, switchMapTo, take, takeUntil } from 'rxjs/operators';
 import { ViewModeDirective } from './directives/view-mode.directive';
 import { EditModeDirective } from './directives/edit-mode.directive';
 import { EDITABLE_CONFIG, EditableConfig } from './editable.config';
@@ -32,8 +31,6 @@ export class EditableComponent implements OnInit, OnDestroy {
 
   @ContentChild(ViewModeDirective) viewModeTpl: ViewModeDirective;
   @ContentChild(EditModeDirective) editModeTpl: EditModeDirective;
-
-  @ViewChild('input') input: ElementRef;
 
   private mode: Mode = 'view';
   private readonly editMode: Subject<boolean> = new Subject<boolean>();
@@ -77,6 +74,7 @@ export class EditableComponent implements OnInit, OnDestroy {
 
   private handleEditMode(): void {
     const clickOutside$ = fromEvent(document, this.closeBindingEvent).pipe(
+      skip(this.openBindingEvent === 'click' ? 1 : 0),
       filter(({ target }) => this.element.contains(target) === false),
       take(1)
     );
