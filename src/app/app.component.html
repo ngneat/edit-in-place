@@ -18,21 +18,24 @@
         {{ inputText }}
       </ng-template>
       <ng-template editMode>
-        <input
-          editableOnEnter
-          editableOnEscape
-          data-testid="sample-input-edit"
-          placeholder="Title"
-          type="text"
-          [formControl]="inputControl"
-        />
+        <div class="form-group">
+          <input
+            class="form-control"
+            editableOnEnter
+            editableOnEscape
+            data-testid="sample-input-edit"
+            placeholder="Title"
+            type="text"
+            [formControl]="inputControl"
+          />
+        </div>
       </ng-template>
     </editable>
   </article>
 </section>
 
 <section>
-  <h4>Sample input triggered by single click [provided by global configuration]</h4>
+  <h4>Sample input triggered by single click</h4>
   <article>
     <editable
       data-testid="sample-input-click"
@@ -43,7 +46,15 @@
         {{ inputText }}
       </ng-template>
       <ng-template editMode>
-        <input data-testid="sample-input-click-edit" placeholder="Title" type="text" [formControl]="inputControl" />
+        <div class="form-group">
+          <input
+            class="form-control"
+            data-testid="sample-input-click-edit"
+            placeholder="Title"
+            type="text"
+            [formControl]="inputControl"
+          />
+        </div>
       </ng-template>
     </editable>
   </article>
@@ -63,7 +74,15 @@
         {{ inputText }}
       </ng-template>
       <ng-template editMode>
-        <input data-testid="sample-input-hover-edit" placeholder="Title" type="text" [formControl]="inputControl" />
+        <div class="form-group">
+          <input
+            class="form-control"
+            data-testid="sample-input-hover-edit"
+            placeholder="Title"
+            type="text"
+            [formControl]="inputControl"
+          />
+        </div>
       </ng-template>
     </editable>
   </article>
@@ -82,13 +101,16 @@
         {{ inputFocusText }}
       </ng-template>
       <ng-template editMode>
-        <input
-          data-testid="sample-input-focus-edit"
-          editableFocusable
-          placeholder="Title"
-          type="text"
-          [formControl]="inputFocusControl"
-        />
+        <div class="form-group">
+          <input
+            class="form-control"
+            data-testid="sample-input-focus-edit"
+            editableFocusable
+            placeholder="Title"
+            type="text"
+            [formControl]="inputFocusControl"
+          />
+        </div>
       </ng-template>
     </editable>
   </article>
@@ -107,9 +129,19 @@
         {{ inputButtonsText }}
       </ng-template>
       <ng-template editMode>
-        <input data-testid="sampleForm-btn-edit" placeholder="Title" type="text" [formControl]="inputButtonsControl" />
-        <button data-testid="sampleForm-save-btn" editableOnSave>Save</button>
-        <button data-testid="sampleForm-cancel-btn" class="cancel-btn" editableOnCancel>Cancel</button>
+        <div class="d-flex align-items-baseline">
+          <div class="form-group">
+            <input
+              class="form-control"
+              data-testid="sampleForm-btn-edit"
+              placeholder="Title"
+              type="text"
+              [formControl]="inputButtonsControl"
+            />
+          </div>
+          <button class="btn btn-success" data-testid="sampleForm-save-btn" editableOnSave>Save</button>
+          <button class="btn btn-secondary" data-testid="sampleForm-cancel-btn" editableOnCancel>Cancel</button>
+        </div>
       </ng-template>
     </editable>
   </article>
@@ -128,9 +160,16 @@
         {{ selectText }}
       </ng-template>
       <ng-template editMode>
-        <select data-testid="sample-select-edit" name="sample-select" [formControl]="selectControl">
-          <option *ngFor="let option of selectOptions" [value]="option">{{ option }}</option>
-        </select>
+        <div class="form-group">
+          <select
+            class="form-control"
+            data-testid="sample-select-edit"
+            name="sample-select"
+            [formControl]="selectControl"
+          >
+            <option *ngFor="let option of selectOptions" [value]="option">{{ option }}</option>
+          </select>
+        </div>
       </ng-template>
     </editable>
   </article>
@@ -149,7 +188,14 @@
         {{ checkboxText }}
       </ng-template>
       <ng-template editMode>
-        <input data-testid="sample-checkbox-edit" type="checkbox" [formControl]="checkboxControl" />
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            data-testid="sample-checkbox-edit"
+            type="checkbox"
+            [formControl]="checkboxControl"
+          />
+        </div>
       </ng-template>
     </editable>
   </article>
@@ -168,7 +214,16 @@
         {{ rangeText }}
       </ng-template>
       <ng-template editMode>
-        <input data-testid="sample-range-edit" type="range" min="0" max="10" [formControl]="rangeControl" />
+        <div class="form-group">
+          <input
+            class="form-control"
+            data-testid="sample-range-edit"
+            type="range"
+            min="0"
+            max="10"
+            [formControl]="rangeControl"
+          />
+        </div>
       </ng-template>
     </editable>
   </article>
@@ -205,7 +260,12 @@
 <section>
   <h4>Table example</h4>
   <article>
-    <table>
+    <table class="table">
+      <colgroup>
+        <col class="name" />
+        <col class="role" />
+        <col class="active" />
+      </colgroup>
       <tr>
         <th>Name</th>
         <th>Role</th>
@@ -218,7 +278,9 @@
               {{ account.name }}
             </ng-template>
             <ng-template editMode>
-              <input placeholder="name" type="text" [formControl]="getControl(index, 'name')" />
+              <div class="form-group">
+                <input class="form-control" placeholder="name" type="text" [formControl]="getControl(index, 'name')" />
+              </div>
             </ng-template>
           </editable>
         </td>
@@ -228,9 +290,11 @@
               {{ account.role }}
             </ng-template>
             <ng-template editMode>
-              <select name="role" [formControl]="getControl(index, 'role')">
-                <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
-              </select>
+              <div class="form-group">
+                <select class="form-control" name="role" [formControl]="getControl(index, 'role')">
+                  <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+                </select>
+              </div>
             </ng-template>
           </editable>
         </td>
@@ -245,7 +309,14 @@
               <span>{{ account.isActive }}</span>
             </ng-template>
             <ng-template editMode>
-              <input placeholder="isActive" type="checkbox" [formControl]="getControl(index, 'isActive')" />
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  placeholder="isActive"
+                  type="checkbox"
+                  [formControl]="getControl(index, 'isActive')"
+                />
+              </div>
             </ng-template>
           </editable>
         </td>
@@ -262,13 +333,13 @@
 >
   <h4>Grouped inputs</h4>
   <aside>
-    <button *ngIf="mode === 'view'" data-testid="groupedForm-edit-btn" editableGroupEdit>
+    <button class="btn btn-primary" *ngIf="mode === 'view'" data-testid="groupedForm-edit-btn" editableGroupEdit>
       Edit
     </button>
-    <button *ngIf="mode === 'edit'" data-testid="groupedForm-save-btn" editableGroupSave>
+    <button class="btn btn-success" *ngIf="mode === 'edit'" data-testid="groupedForm-save-btn" editableGroupSave>
       Save
     </button>
-    <button *ngIf="mode === 'edit'" data-testid="groupedForm-cancel-btn" editableGroupCancel>
+    <button class="btn btn-secondary" *ngIf="mode === 'edit'" data-testid="groupedForm-cancel-btn" editableGroupCancel>
       Cancel
     </button>
   </aside>
@@ -279,14 +350,15 @@
           {{ identity.name }}
         </ng-template>
         <ng-template editMode>
-          <input
-            editableOnEnter
-            editableOnEscape
-            data-testid="grouped-input-edit-1"
-            placeholder="Name"
-            type="text"
-            formControlName="name"
-          />
+          <div class="form-group">
+            <input
+              class="form-control"
+              data-testid="grouped-input-edit-1"
+              placeholder="Name"
+              type="text"
+              formControlName="name"
+            />
+          </div>
         </ng-template>
       </editable>
     </article>
@@ -296,14 +368,15 @@
           {{ identity.city }}
         </ng-template>
         <ng-template editMode>
-          <input
-            editableOnEnter
-            editableOnEscape
-            data-testid="grouped-input-edit-2"
-            placeholder="City"
-            type="text"
-            formControlName="city"
-          />
+          <div class="form-group">
+            <input
+              class="form-control"
+              data-testid="grouped-input-edit-2"
+              placeholder="City"
+              type="text"
+              formControlName="city"
+            />
+          </div>
         </ng-template>
       </editable>
     </article>
@@ -313,14 +386,15 @@
           {{ identity.country }}
         </ng-template>
         <ng-template editMode>
-          <input
-            editableOnEnter
-            editableOnEscape
-            data-testid="grouped-input-edit-3"
-            placeholder="Country"
-            type="text"
-            formControlName="country"
-          />
+          <div class="form-group">
+            <input
+              class="form-control"
+              data-testid="grouped-input-edit-3"
+              placeholder="Country"
+              type="text"
+              formControlName="country"
+            />
+          </div>
         </ng-template>
       </editable>
     </article>

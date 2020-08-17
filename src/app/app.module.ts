@@ -5,10 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EDITABLE_CONFIG, EditableConfig, EditableModule } from '@ngneat/edit-in-place';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, EditableModule, ReactiveFormsModule],
+  imports: [BrowserModule, AppRoutingModule, EditableModule, ReactiveFormsModule, NgbModule],
   providers: [
     {
       provide: EDITABLE_CONFIG,

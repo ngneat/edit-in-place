@@ -5,35 +5,8 @@
   align-items: center;
 }
 
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td,
-th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-  width: 33%;
-  height: 30px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-
 button {
-  background-color: teal;
-  color: white;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  border: none;
-  margin: 1rem;
-}
-
-.cancel-btn {
-  background-color: gray;
+  margin: 10px;
 }
 
 input {
@@ -92,4 +65,24 @@ aside {
 
 .hide {
   display: none;
+}
+
+.form-group {
+  width: fit-content;
+}
+
+.name {
+  width: 152px;
+}
+
+.role {
+  width: 295px;
+}
+
+.active {
+  width: 161px;
+}
+
+tr {
+  height: 83px;
 }
