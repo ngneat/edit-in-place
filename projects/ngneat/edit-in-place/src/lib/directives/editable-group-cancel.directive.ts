@@ -7,6 +7,6 @@ import { EditableGroupActionDirective } from './editable-group-action.directive'
 export class EditableGroupCancelDirective extends EditableGroupActionDirective {
   @HostListener('click')
   onClick(): void {
-    this.group.cancelEdition();
+    this.group.cancelEdit();
   }
 }

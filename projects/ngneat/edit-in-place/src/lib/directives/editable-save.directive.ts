@@ -15,7 +15,7 @@ export class EditableSaveDirective implements OnInit, OnDestroy {
   ngOnInit(): void {
     fromEvent(this.el.nativeElement, this.saveEvent)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(() => this.editable.saveEdition());
+      .subscribe(() => this.editable.saveEdit());
   }
 
   ngOnDestroy(): void {

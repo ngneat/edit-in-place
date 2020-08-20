@@ -15,7 +15,7 @@ export class EditableCancelDirective implements OnInit, OnDestroy {
   ngOnInit(): void {
     fromEvent(this.el.nativeElement, this.cancelEvent)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(() => this.editable.cancelEdition());
+      .subscribe(() => this.editable.cancelEdit());
   }
 
   ngOnDestroy(): void {

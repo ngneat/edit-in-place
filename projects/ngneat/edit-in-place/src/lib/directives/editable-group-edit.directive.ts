@@ -7,6 +7,6 @@ import { EditableGroupActionDirective } from './editable-group-action.directive'
 export class EditableGroupEditDirective extends EditableGroupActionDirective {
   @HostListener('click')
   onClick(): void {
-    this.group.displayEdition();
+    this.group.displayEditMode();
   }
 }

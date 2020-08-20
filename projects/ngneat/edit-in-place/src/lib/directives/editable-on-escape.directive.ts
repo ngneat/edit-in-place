@@ -9,6 +9,6 @@ export class EditableOnEscapeDirective {
 
   @HostListener('keyup.escape')
   onEnter(): void {
-    this.editable.cancelEdition();
+    this.editable.cancelEdit();
   }
 }

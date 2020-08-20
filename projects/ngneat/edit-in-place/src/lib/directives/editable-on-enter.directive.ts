@@ -9,6 +9,6 @@ export class EditableOnEnterDirective {
 
   @HostListener('keyup.enter')
   onEnter(): void {
-    this.editable.saveEdition();
+    this.editable.saveEdit();
   }
 }

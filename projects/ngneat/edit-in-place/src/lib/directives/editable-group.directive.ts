@@ -14,22 +14,23 @@ export class EditableGroupDirective implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.children.forEach((child) => child.viewHandler.unsubscribe());
+    this.children.forEach((child) => child.editHandler.unsubscribe());
   }
 
-  displayEdition(): void {
+  displayEditMode(): void {
     this.editableModeChange.emit('edit');
-    this.children.forEach((child) => child.displayEdition(true));
+    this.children.forEach((child) => child.displayEditMode());
   }
 
-  saveEdition(): void {
+  saveEdit(): void {
     this.editableModeChange.emit('view');
-    this.children.forEach((child) => child.saveEdition());
+    this.children.forEach((child) => child.saveEdit());
     this.save.emit();
   }
 
-  cancelEdition(): void {
+  cancelEdit(): void {
     this.editableModeChange.emit('view');
-    this.children.forEach((child) => child.cancelEdition());
+    this.children.forEach((child) => child.cancelEdit());
     this.cancel.emit();
   }
 }

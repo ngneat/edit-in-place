@@ -7,6 +7,6 @@ import { EditableGroupActionDirective } from './editable-group-action.directive'
 export class EditableGroupSaveDirective extends EditableGroupActionDirective {
   @HostListener('click')
   onClick(): void {
-    this.group.saveEdition();
+    this.group.saveEdit();
   }
 }
