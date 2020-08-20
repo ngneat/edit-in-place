@@ -99,15 +99,7 @@ export class AppComponent implements OnInit {
     const control = this.getControl(index, field);
 
     if (control.valid) {
-      this.accounts = this.accounts.map((account, i) => {
-        if (index === i) {
-          return {
-            ...account,
-            [field]: control.value,
-          };
-        }
-        return account;
-      });
+      this.accounts[index][field] = control.value;
     }
   }
 
