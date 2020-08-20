@@ -18,6 +18,8 @@ Edit in place is a complete solution for switching modes between static content 
 
 Following open/closed principle, the library focuses on the switch mechanism, giving you full control of the data you want to update and the content you want to display and how to edit it.
 
+![alt-text](./demo.gif)
+
 [Demo](https://ngneat.github.io/edit-in-place)
 
 ## Features
