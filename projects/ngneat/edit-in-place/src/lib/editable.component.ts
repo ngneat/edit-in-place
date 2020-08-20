@@ -58,10 +58,10 @@ export class EditableComponent implements OnInit, OnDestroy {
   private handleViewMode(): void {
     this.viewHandler = fromEvent(this.element, this.openBindingEvent)
       .pipe(
-        takeUntil(this.destroy$),
-        tap((e: any) => e.stopPropagation()),
+        tap((e: Event) => e.stopPropagation()),
         withLatestFrom(this.editMode$),
-        filter(([_, editMode]) => !editMode)
+        filter(([_, editMode]) => !editMode),
+        takeUntil(this.destroy$)
       )
       .subscribe(() => this.displayEditMode());
   }
