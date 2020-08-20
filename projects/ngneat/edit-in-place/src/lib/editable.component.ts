@@ -11,7 +11,7 @@ import {
   Output,
 } from '@angular/core';
 import { BehaviorSubject, fromEvent, Observable, Subject, Subscription } from 'rxjs';
-import { filter, skip, switchMapTo, take, takeUntil, withLatestFrom } from 'rxjs/operators';
+import { filter, switchMapTo, take, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
 import { ViewModeDirective } from './directives/view-mode.directive';
 import { EditModeDirective } from './directives/edit-mode.directive';
 import { EDITABLE_CONFIG, EditableConfig } from './editable.config';
@@ -59,22 +59,22 @@ export class EditableComponent implements OnInit, OnDestroy {
     this.viewHandler = fromEvent(this.element, this.openBindingEvent)
       .pipe(
         takeUntil(this.destroy$),
+        tap((e: any) => e.stopPropagation()),
         withLatestFrom(this.editMode$),
-        filter(([_, mode]) => !mode)
+        filter(([_, editMode]) => !editMode)
       )
       .subscribe(() => this.displayEditMode());
   }
 
   private handleEditMode(): void {
     const clickOutside$ = fromEvent(document, this.closeBindingEvent).pipe(
-      skip(this.openBindingEvent === 'click' ? 1 : 0),
       filter(({ target }) => this.element.contains(target) === false),
       take(1)
     );
 
     this.editHandler = this.editMode$
       .pipe(
-        filter((value) => value),
+        filter((editMode) => editMode),
         switchMapTo(clickOutside$),
         takeUntil(this.destroy$)
       )
