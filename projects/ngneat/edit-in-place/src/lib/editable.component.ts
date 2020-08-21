@@ -78,7 +78,7 @@ export class EditableComponent implements OnInit, OnDestroy {
 
     this.editHandler = this.editMode$
       .pipe(
-        filter(editMode => editMode),
+        filter((editMode) => editMode),
         switchMapTo(clickOutside$),
         takeUntil(this.destroy$)
       )
