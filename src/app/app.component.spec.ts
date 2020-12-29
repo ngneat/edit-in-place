@@ -1,6 +1,6 @@
 import { AppComponent } from './app.component';
 import { byTestId, createComponentFactory, Spectator } from '@ngneat/spectator';
-import { EDITABLE_CONFIG, EditableModule } from '@ngneat/edit-in-place';
+import { EDITABLE_CONFIG, EditableModule, DEFAULT_CONFIG } from '@ngneat/edit-in-place';
 import { ReactiveFormsModule } from '@angular/forms';
 
 describe('GIVEN AppComponent', () => {
@@ -8,7 +8,7 @@ describe('GIVEN AppComponent', () => {
   const createComponent = createComponentFactory({
     component: AppComponent,
     imports: [EditableModule, ReactiveFormsModule],
-    providers: [{ provide: EDITABLE_CONFIG, useValue: 'click' }],
+    providers: [{ provide: EDITABLE_CONFIG, useValue: DEFAULT_CONFIG }],
   });
 
   beforeEach(() => {
