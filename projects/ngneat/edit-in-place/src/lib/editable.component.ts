@@ -15,6 +15,7 @@ import { filter, skip, switchMapTo, take, takeUntil, withLatestFrom } from 'rxjs
 import { ViewModeDirective } from './directives/view-mode.directive';
 import { EditModeDirective } from './directives/edit-mode.directive';
 import { EDITABLE_CONFIG, EditableConfig } from './editable.config';
+import { Mode } from './mode';
 
 @Component({
   selector: 'editable',
@@ -30,6 +31,7 @@ export class EditableComponent implements OnInit, OnDestroy {
 
   @Output() save: EventEmitter<void> = new EventEmitter<void>();
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
+  @Output() modeChange: EventEmitter<Mode> = new EventEmitter<Mode>();
 
   @ContentChild(ViewModeDirective) viewModeTpl: ViewModeDirective;
   @ContentChild(EditModeDirective) editModeTpl: EditModeDirective;
@@ -87,15 +89,18 @@ export class EditableComponent implements OnInit, OnDestroy {
 
   public displayEditMode(): void {
     this.editMode.next(true);
+    this.modeChange.emit('edit');
   }
 
   public saveEdit(): void {
     this.save.next();
     this.editMode.next(false);
+    this.modeChange.emit('view');
   }
 
   public cancelEdit(): void {
     this.cancel.next();
     this.editMode.next(false);
+    this.modeChange.emit('view');
   }
 }
