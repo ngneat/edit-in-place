@@ -89,15 +89,18 @@ export class EditableComponent implements OnInit, OnDestroy {
 
   public displayEditMode(): void {
     this.editMode.next(true);
+    this.modeChange.emit('edit');
   }
 
   public saveEdit(): void {
     this.save.next();
     this.editMode.next(false);
+    this.modeChange.emit('view');
   }
 
   public cancelEdit(): void {
     this.cancel.next();
     this.editMode.next(false);
+    this.modeChange.emit('view');
   }
 }
