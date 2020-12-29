@@ -1,8 +1,18 @@
 import { InjectionToken } from '@angular/core';
+import { TriggerEvents } from './editable.types';
 
 export interface EditableConfig {
-  openBindingEvent: string;
-  closeBindingEvent: string;
+  openBindingEvent?: TriggerEvents;
+  closeBindingEvent?: TriggerEvents;
 }
 
-export const EDITABLE_CONFIG = new InjectionToken<EditableConfig>('editable.config');
+export const DEFAULT_CONFIG: EditableConfig = {
+  openBindingEvent: 'click',
+  closeBindingEvent: 'click',
+};
+
+export const EDITABLE_CONFIG = new InjectionToken<EditableConfig>('editable.config', {
+  factory() {
+    return DEFAULT_CONFIG;
+  },
+});

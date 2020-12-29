@@ -15,6 +15,7 @@ import { filter, skip, switchMapTo, take, takeUntil, withLatestFrom } from 'rxjs
 import { ViewModeDirective } from './directives/view-mode.directive';
 import { EditModeDirective } from './directives/edit-mode.directive';
 import { EDITABLE_CONFIG, EditableConfig } from './editable.config';
+import { Mode } from './mode';
 
 @Component({
   selector: 'editable',
@@ -25,11 +26,12 @@ import { EDITABLE_CONFIG, EditableConfig } from './editable.config';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditableComponent implements OnInit, OnDestroy {
-  @Input() openBindingEvent = this.config.openBindingEvent || 'click';
-  @Input() closeBindingEvent = this.config.closeBindingEvent || 'click';
+  @Input() openBindingEvent = this.config.openBindingEvent;
+  @Input() closeBindingEvent = this.config.closeBindingEvent;
 
   @Output() save: EventEmitter<void> = new EventEmitter<void>();
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
+  @Output() modeChange: EventEmitter<Mode> = new EventEmitter<Mode>();
 
   @ContentChild(ViewModeDirective) viewModeTpl: ViewModeDirective;
   @ContentChild(EditModeDirective) editModeTpl: EditModeDirective;
@@ -68,9 +70,9 @@ export class EditableComponent implements OnInit, OnDestroy {
   private handleEditMode(): void {
     const clickOutside$ = fromEvent(document, this.closeBindingEvent).pipe(
       /*
-      skip the first propagated event if there is a nested node in the viewMode templateRef
-      so it doesn't trigger this eventListener when switching to editMode
-       */
+        skip the first propagated event if there is a nested node in the viewMode templateRef
+        so it doesn't trigger this eventListener when switching to editMode
+         */
       skip(this.openBindingEvent === this.closeBindingEvent ? 1 : 0),
       filter(({ target }) => this.element.contains(target) === false),
       take(1)

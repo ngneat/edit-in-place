@@ -82,7 +82,7 @@ For more complex examples, check out the [playground](https://github.com/ngneat/
 
 Click on the `viewMode` template to switch it to `editMode` or click outside the editable component to switch back to `viewMode`.
 
-You can customize the switch trigger by providing a `MouseEvent` type:
+You can customize the switch trigger which set to `click` by default by providing a `MouseEvent` type:
 
 ```html
 <editable openBindingEvent="dblclick"
@@ -91,7 +91,7 @@ You can customize the switch trigger by providing a `MouseEvent` type:
 </editable>
 ```
 
-You can set this value globally by providing it in the `EDITABLE_CONFIG` provider:
+You can also set this value globally by providing it in the `EDITABLE_CONFIG` provider:
 
 ```typescript
 @NgModule({
