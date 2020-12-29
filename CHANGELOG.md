@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/ngneat/edit-in-place/compare/v1.1.0...v1.2.0) (2020-12-29)
+
+
+### Features
+
+* **lib:** add mode event on EditableComponent ([75f36ff](https://github.com/ngneat/edit-in-place/commit/75f36fffe4b12b34b439440d26cb58c475112f02))
+
+
+### Bug Fixes
+
+* **lib:** single click support ([b38466b](https://github.com/ngneat/edit-in-place/commit/b38466b3f6a1861c097718847106303c063c63d2))
+* 🐛 make config optional ([#5](https://github.com/ngneat/edit-in-place/issues/5)) ([b5f506a](https://github.com/ngneat/edit-in-place/commit/b5f506a9d801765e0dedd5040ec9e61cc073dc12))
+
 ## [1.1.0](https://github.com/ngneat/edit-in-place/compare/v1.0.1...v1.1.0) (2020-11-14)
 
 
