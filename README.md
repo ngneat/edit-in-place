@@ -126,6 +126,22 @@ You can use the `editableOnUpdate` and `editableOnCancel` directives to trigger 
 </editable>
 ```
 
+## Track event changes
+
+You can use the `modeChange` event to know what is the state of a given `EditableComponent`.
+
+```html
+<editable (modeChange)="doWhatever()">
+  <ng-template viewMode>...</ng-template>
+
+  <ng-template editMode>
+    <input formControlName="name">
+    <button editableOnSave>Save</button>
+    <button editableOnCancel>Cancel</button>    
+  </ng-template>
+</editable>
+```
+
 ## Handle Focus
 
 As a focusable form tag might be nested or custom, it isn't focused by default when the `editMode` is displayed.
@@ -188,6 +204,7 @@ The following actions will trigger this event:
 | ---------------------- | ------------------------- | ------------------------------------------------------------
 | save                   | `void`                    | triggered by the editableOnSave and editableOnEnter directives and the MouseEvent on closeBindingEvent @Input                                                                               |
 | cancel                 | `void`                    | triggered by the editableCancel and editableOnEscape directives                                                                                 |
+| modeChange             | `edit` or `view`          | triggered when the mode changes                                                                               |
 
 
 ## Directives
