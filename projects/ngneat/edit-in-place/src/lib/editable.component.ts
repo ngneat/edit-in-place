@@ -60,9 +60,9 @@ export class EditableComponent implements OnInit, OnDestroy {
   private handleViewMode(): void {
     this.viewHandler = fromEvent(this.element, this.openBindingEvent)
       .pipe(
-        takeUntil(this.destroy$),
         withLatestFrom(this.editMode$),
-        filter(([_, editMode]) => !editMode)
+        filter(([_, editMode]) => !editMode),
+        takeUntil(this.destroy$)
       )
       .subscribe(() => this.displayEditMode());
   }
@@ -94,13 +94,18 @@ export class EditableComponent implements OnInit, OnDestroy {
 
   public saveEdit(): void {
     this.save.next();
-    this.editMode.next(false);
-    this.modeChange.emit('view');
+    this.leaveEditMode();
   }
 
   public cancelEdit(): void {
     this.cancel.next();
+    this.leaveEditMode();
+  }
+
+  private leaveEditMode(): void {
     this.editMode.next(false);
     this.modeChange.emit('view');
+    this.viewHandler.unsubscribe();
+    setTimeout(() => this.handleViewMode(), 0);
   }
 }

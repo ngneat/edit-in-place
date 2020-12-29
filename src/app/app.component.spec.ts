@@ -64,13 +64,6 @@ describe('GIVEN AppComponent', () => {
         expect(spectator.query(byTestId('sample-input-edit'))).not.toBeVisible();
         expect(spectator.query(byTestId('sample-input'))).toContainText('foo');
       });
-      it('THEN should reset the formControl value', () => {
-        spectator.mouse.dblclick(byTestId('sample-input'));
-        spectator.typeInElement('bar', byTestId('sample-input-edit'));
-        spectator.keyboard.pressEscape(byTestId('sample-input-edit'));
-        spectator.mouse.dblclick(byTestId('sample-input'));
-        expect((spectator.query(byTestId('sample-input-edit')) as HTMLInputElement).value).toEqual('foo');
-      });
     });
   });
 
