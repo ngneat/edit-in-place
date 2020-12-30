@@ -11,7 +11,7 @@ import {
   Output,
 } from '@angular/core';
 import { BehaviorSubject, fromEvent, Observable, Subject, Subscription } from 'rxjs';
-import { filter, skip, switchMapTo, take, takeUntil, withLatestFrom } from 'rxjs/operators';
+import { filter, skip, switchMap, take, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { ViewModeDirective } from './directives/view-mode.directive';
 import { EditModeDirective } from './directives/edit-mode.directive';
 import { EDITABLE_CONFIG, EditableConfig } from './editable.config';
@@ -68,20 +68,21 @@ export class EditableComponent implements OnInit, OnDestroy {
   }
 
   private handleEditMode(): void {
-    const clickOutside$ = fromEvent(document, this.closeBindingEvent).pipe(
-      /*
+    const clickOutside$ = (editMode: boolean) =>
+      fromEvent(document, this.closeBindingEvent).pipe(
+        filter(() => editMode),
+        /*
         skip the first propagated event if there is a nested node in the viewMode templateRef
         so it doesn't trigger this eventListener when switching to editMode
          */
-      skip(this.openBindingEvent === this.closeBindingEvent ? 1 : 0),
-      filter(({ target }) => this.element.contains(target) === false),
-      take(1)
-    );
+        skip(this.openBindingEvent === this.closeBindingEvent ? 1 : 0),
+        filter(({ target }) => this.element.contains(target) === false),
+        take(1)
+      );
 
     this.editHandler = this.editMode$
       .pipe(
-        filter((editMode) => editMode),
-        switchMapTo(clickOutside$),
+        switchMap((editMode: boolean) => clickOutside$(editMode)),
         takeUntil(this.destroy$)
       )
       .subscribe(() => this.saveEdit());
