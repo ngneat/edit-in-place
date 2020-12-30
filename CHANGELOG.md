@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/ngneat/edit-in-place/compare/v1.2.0...v1.3.0) (2020-12-30)
+
+
+### Features
+
+* **lib:** update README ([03b85a6](https://github.com/ngneat/edit-in-place/commit/03b85a60265cf4130c4babc4d6174f8902a32ce1))
+
+
+### Bug Fixes
+
+* **lib:** single click handle ([08366d5](https://github.com/ngneat/edit-in-place/commit/08366d56f688fd65490993f1230f5f1b97d7cdbe))
+
 ## [1.2.0](https://github.com/ngneat/edit-in-place/compare/v1.1.0...v1.2.0) (2020-12-29)
 
 
