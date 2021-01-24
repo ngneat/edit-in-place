@@ -41,6 +41,7 @@ export class EditableComponent implements OnInit, OnDestroy {
   public viewHandler: Subscription;
   public editHandler: Subscription;
   private destroy$: Subject<boolean> = new Subject<boolean>();
+  public isGrouped = false;
 
   constructor(private readonly el: ElementRef, @Inject(EDITABLE_CONFIG) readonly config: EditableConfig) {}
 
@@ -106,7 +107,9 @@ export class EditableComponent implements OnInit, OnDestroy {
   private leaveEditMode(): void {
     this.editMode.next(false);
     this.modeChange.emit('view');
-    this.viewHandler.unsubscribe();
-    setTimeout(() => this.handleViewMode(), 0);
+    if (!this.isGrouped) {
+      this.viewHandler.unsubscribe();
+      setTimeout(() => this.handleViewMode(), 0);
+    }
   }
 }

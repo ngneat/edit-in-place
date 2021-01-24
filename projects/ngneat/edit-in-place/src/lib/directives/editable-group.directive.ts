@@ -13,6 +13,7 @@ export class EditableGroupDirective implements AfterViewInit {
   @Output() editableModeChange: EventEmitter<Mode> = new EventEmitter<Mode>();
 
   ngAfterViewInit(): void {
+    this.children.forEach((child) => (child.isGrouped = true));
     this.children.forEach((child) => child.viewHandler.unsubscribe());
     this.children.forEach((child) => child.editHandler.unsubscribe());
   }
