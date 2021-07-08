@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/ngneat/edit-in-place/compare/v1.3.0...v1.4.0) (2021-07-08)
+
+
+### Features
+
+* update to angular 12 ([01763fd](https://github.com/ngneat/edit-in-place/commit/01763fd6f4c62cb06725eced0fccc2d40406b0ed))
+
+
+### Bug Fixes
+
+* **lib:** fix viewHandler on grouped elements ([7eaffe3](https://github.com/ngneat/edit-in-place/commit/7eaffe3e0db13878d7236ae9ab07a48c1c4610e7))
+
 ### [1.3.1](https://github.com/ngneat/edit-in-place/compare/v1.3.0...v1.3.1) (2021-01-24)
 
 
