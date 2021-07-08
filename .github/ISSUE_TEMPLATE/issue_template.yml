@@ -1,0 +1,47 @@
+name: Generic request/report
+description: Fill a new issue about this project
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        > PLEASE HELP US PROCESS GITHUB ISSUES FASTER BY PROVIDING THE FOLLOWING
+        INFORMATION.
+
+        ISSUES MISSING IMPORTANT INFORMATION MAY BE CLOSED WITHOUT
+        INVESTIGATION.
+  - type: dropdown
+    attributes:
+      label: I'm submitting a
+      options:
+        - >-
+          Regression (a behavior that used to work and stopped working in a new
+          release)
+        - Bug report
+        - Performance issue
+        - Feature request
+        - Documentation issue or request
+        - Support request
+        - Other... Please describe
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Current behavior
+  - type: textarea
+    attributes:
+      label: Expected behavior
+  - type: textarea
+    attributes:
+      label: Minimal reproduction of the problem with instructions
+  - type: textarea
+    attributes:
+      label: What is the motivation / use case for changing the behavior?
+  - type: textarea
+    attributes:
+      label: Environment
+      render: shell
+  - type: markdown
+    attributes:
+      value: >-
+        This template was generated with [Issue Forms
+        Creator](https://www.issue-forms-creator.app/)
