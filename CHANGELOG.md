@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/ngneat/edit-in-place/compare/v1.4.0...v1.5.0) (2021-07-09)
+
+
+### Features
+
+* add issue forms to enhance the communication ([cb198ef](https://github.com/ngneat/edit-in-place/commit/cb198ef94054254fe2bb6ad2ec8461476640f5eb))
+
+
+### Bug Fixes
+
+* allow `EditableComponent` to be garbage collected ([d8df571](https://github.com/ngneat/edit-in-place/commit/d8df571c6f66bf927366fd9ca8eed27efce4de8b))
+
 ## [1.4.0](https://github.com/ngneat/edit-in-place/compare/v1.3.0...v1.4.0) (2021-07-08)
 
 
