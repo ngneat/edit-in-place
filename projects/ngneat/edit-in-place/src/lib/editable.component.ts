@@ -56,6 +56,12 @@ export class EditableComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
+    // Caretaker note: we're explicitly setting these subscriptions to `null` since this actually will be closed subscriptions,
+    // but they still keep referencing `destination`'s, which are `SafeSubscribers`. Destinations keep referencing `next` functions,
+    // which are `() => this.displayEditMode()` and `() => this.saveEdit()`.
+    // Since `next` functions capture `this`, this leads to a circular reference preventing the `EditableComponent` from being GC'd.
+    this.editHandler = null;
+    this.viewHandler = null;
   }
 
   private handleViewMode(): void {
