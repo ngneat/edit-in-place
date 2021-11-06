@@ -253,4 +253,43 @@ describe('GIVEN AppComponent', () => {
       });
     });
   });
+
+  describe('Sample enable flag', () => {
+    describe('IN ENABLE mode', () => {
+      describe('WHEN INITIALIZING the component', () => {
+        it('THEN should render the text content', () => {
+          expect(spectator.query(byTestId('sample-enable-flag-check'))).toHaveProperty('checked', true);
+          expect(spectator.query(byTestId('sample-enable-flag'))).toContainText('foo');
+        });
+      });
+      describe('WHEN clicking on the text', () => {
+        it('THEN should render the input', () => {
+          expect(spectator.query(byTestId('sample-enable-flag-check'))).toHaveProperty('checked', true);
+          spectator.click(byTestId('sample-enable-flag'));
+          expect(spectator.query(byTestId('sample-enable-flag-edit'))).toBeVisible();
+        });
+      });
+    });
+    describe('IN DISABLE mode', () => {
+      beforeEach(() => {
+        spectator.click(byTestId('sample-enable-flag-check'));
+      });
+
+      describe('WHEN INITIALIZING the component', () => {
+        it('THEN should render the text content', () => {
+          expect(spectator.query(byTestId('sample-enable-flag-check'))).toHaveProperty('checked', false);
+          expect(spectator.query(byTestId('sample-enable-flag'))).toContainText('foo');
+        });
+      });
+
+      describe('WHEN clicking on the text', () => {
+        it('THEN should NOT render the input', () => {
+          expect(spectator.query(byTestId('sample-enable-flag-check'))).toHaveProperty('checked', false);
+          spectator.click(byTestId('sample-enable-flag'));
+          expect(spectator.query(byTestId('sample-enable-flag'))).toContainText('foo');
+          expect(spectator.query(byTestId('sample-enable-flag-edit'))).not.toBeVisible();
+        });
+      });
+    });
+  });
 });

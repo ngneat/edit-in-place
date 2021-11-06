@@ -401,4 +401,43 @@
   </form>
 </section>
 
+<section>
+  <h4>Sample enable flag</h4>
+  <div class="form-check">
+    <input
+      #enableFlagInput
+      class="form-check-input"
+      type="checkbox"
+      id="enable-flag"
+      name="enable-flag"
+      checked
+      data-testid="sample-enable-flag-check"
+    />
+    <label for="enable-flag" class="form-check-label">Allows edit</label>
+  </div>
+  <article>
+    <editable
+      data-testid="sample-enable-flag"
+      [enabled]="enableFlagInput.checked"
+      (save)="updateSingleField('inputText', 'inputControl')"
+      (cancel)="cancelSingleField('inputText', 'inputControl')"
+    >
+      <ng-template viewMode>
+        {{ inputText }}
+      </ng-template>
+      <ng-template editMode>
+        <div class="form-group">
+          <input
+            class="form-control"
+            data-testid="sample-enable-flag-edit"
+            placeholder="Title"
+            type="text"
+            [formControl]="inputControl"
+          />
+        </div>
+      </ng-template>
+    </editable>
+  </article>
+</section>
+
 <div data-testid="outside"></div>

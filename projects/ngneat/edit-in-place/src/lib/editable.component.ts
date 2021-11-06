@@ -26,6 +26,7 @@ import { Mode } from './mode';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditableComponent implements OnInit, OnDestroy {
+  @Input() enabled = true;
   @Input() openBindingEvent = this.config.openBindingEvent;
   @Input() closeBindingEvent = this.config.closeBindingEvent;
 
@@ -67,6 +68,7 @@ export class EditableComponent implements OnInit, OnDestroy {
   private handleViewMode(): void {
     this.viewHandler = fromEvent(this.element, this.openBindingEvent)
       .pipe(
+        filter(() => this.enabled),
         withLatestFrom(this.editMode$),
         filter(([_, editMode]) => !editMode),
         takeUntil(this.destroy$)
