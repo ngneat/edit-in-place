@@ -197,6 +197,7 @@ The following actions will trigger this event:
 | ---------------------- | ------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------- |
 | openBindingEvent       | `string`                  | The MouseEvent type to display the editMode                  | `click`                                                              |
 | closeBindingEvent      | `string`                  | The MouseEvent type to display the viewMode                  | `click`                                                                 |
+| enabled                | `boolean`                 | Allows or forbids edit mode (doesn't switch to it)           | `true`                                                                 |
 
 ## Outputs
 
