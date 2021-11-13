@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "SchematicsEditInPlaceAdd",
+  "$id": "SchematicsEditInPlaceAdd",
   "title": "Add edit-in-place to Your Project",
   "type": "object",
   "properties": {
