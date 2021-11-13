@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/ngneat/edit-in-place/compare/v1.3.0...v1.6.0) (2021-11-13)
+
+
+### Features
+
+* add enable flag ([91f616b](https://github.com/ngneat/edit-in-place/commit/91f616b83af28a2cfb3734635b23ae31bc48cfba)), closes [#12](https://github.com/ngneat/edit-in-place/issues/12)
+* add issue forms to enhance the communication ([cb198ef](https://github.com/ngneat/edit-in-place/commit/cb198ef94054254fe2bb6ad2ec8461476640f5eb))
+* update to angular 12 ([01763fd](https://github.com/ngneat/edit-in-place/commit/01763fd6f4c62cb06725eced0fccc2d40406b0ed))
+
+
+### Bug Fixes
+
+* **lib:** export directives/components due to Angular 13 migration ([755d075](https://github.com/ngneat/edit-in-place/commit/755d07537cd6934504cd15405e27f115899ac590))
+* allow `EditableComponent` to be garbage collected ([d8df571](https://github.com/ngneat/edit-in-place/commit/d8df571c6f66bf927366fd9ca8eed27efce4de8b))
+* **lib:** fix viewHandler on grouped elements ([7eaffe3](https://github.com/ngneat/edit-in-place/commit/7eaffe3e0db13878d7236ae9ab07a48c1c4610e7))
+
 ## [1.5.0](https://github.com/ngneat/edit-in-place/compare/v1.4.0...v1.5.0) (2021-07-09)
 
 
