@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.1](https://github.com/ngneat/edit-in-place/compare/v1.6.0...v1.6.1) (2021-11-13)
+
+
+### Bug Fixes
+
+* **lib:** update deprecated id keyword ([9028c14](https://github.com/ngneat/edit-in-place/commit/9028c1468419d58bff29e904b6bb2a89d3aac8c8)), closes [#11](https://github.com/ngneat/edit-in-place/issues/11)
+
 ## [1.6.0](https://github.com/ngneat/edit-in-place/compare/v1.3.0...v1.6.0) (2021-11-13)
 
 
