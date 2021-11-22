@@ -77,7 +77,7 @@
     "all-contributors-cli": "^6.8.1",
     "angular-cli-ghpages": "^1.0.0-rc.2",
     "codelyzer": "^6.0.1",
-    "cross-env": "^5.2.0",
+    "cross-env": "^7.0.3",
     "git-cz": "^3.2.1",
     "husky": "^3.0.1",
     "jasmine-core": "~3.5.0",
