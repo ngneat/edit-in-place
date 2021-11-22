@@ -23,7 +23,9 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - run: npm install
+      - name: install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install
       - run: npm run test -- edit-in-place --no-watch --no-progress --browsers=ChromeHeadless
       - run: npm run prettier:check
         env:
