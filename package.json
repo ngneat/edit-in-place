@@ -59,7 +59,7 @@
     "@ngneat/lib": "^2.0.1",
     "bootstrap": "^5.0.2",
     "rxjs": "~6.5.5",
-    "tslib": "^2.3.0",
+    "tslib": "^2.3.1",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
