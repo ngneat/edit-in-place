@@ -67,7 +67,7 @@
     "@angular-devkit/build-ng-packagr": "~0.1000.3",
     "@angular/cli": "~13.0.1",
     "@angular/compiler-cli": "~13.0.0",
-    "@commitlint/cli": "8.1.0",
+    "@commitlint/cli": "15.0.0",
     "@commitlint/config-angular": "^15.0.0",
     "@commitlint/config-conventional": "^15.0.0",
     "@ngneat/spectator": "latest",
