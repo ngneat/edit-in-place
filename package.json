@@ -78,7 +78,7 @@
     "angular-cli-ghpages": "^1.0.0",
     "codelyzer": "^6.0.2",
     "cross-env": "^7.0.3",
-    "git-cz": "^3.2.1",
+    "git-cz": "^4.8.0",
     "husky": "^7.0.4",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~7.0.0",
