@@ -74,7 +74,7 @@
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^16.11.11",
-    "all-contributors-cli": "^6.8.1",
+    "all-contributors-cli": "^6.20.0",
     "angular-cli-ghpages": "^1.0.0",
     "codelyzer": "^6.0.2",
     "cross-env": "^7.0.3",
