@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~13.0.4",
-    "@angular-devkit/build-ng-packagr": "~0.1000.3",
+    "@angular-devkit/build-ng-packagr": "~0.1002.0",
     "@angular/cli": "~13.0.1",
     "@angular/compiler-cli": "~13.0.0",
     "@commitlint/cli": "15.0.0",
