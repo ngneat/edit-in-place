@@ -73,7 +73,7 @@
     "@ngneat/spectator": "latest",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
-    "@types/node": "^12.11.1",
+    "@types/node": "^16.11.11",
     "all-contributors-cli": "^6.8.1",
     "angular-cli-ghpages": "^1.0.0-rc.2",
     "codelyzer": "^6.0.2",
