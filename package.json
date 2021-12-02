@@ -68,7 +68,7 @@
     "@angular/cli": "~13.0.1",
     "@angular/compiler-cli": "~13.0.0",
     "@commitlint/cli": "8.1.0",
-    "@commitlint/config-angular": "^8.1.0",
+    "@commitlint/config-angular": "^15.0.0",
     "@commitlint/config-conventional": "^15.0.0",
     "@ngneat/spectator": "latest",
     "@types/jasmine": "~3.5.0",
