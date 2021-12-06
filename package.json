@@ -52,7 +52,7 @@
     "@angular/core": "~13.0.0",
     "@angular/forms": "~13.0.0",
     "@angular/localize": "~13.0.0",
-    "@angular/platform-browser": "~13.0.0",
+    "@angular/platform-browser": "~13.0.3",
     "@angular/platform-browser-dynamic": "~13.0.0",
     "@angular/router": "~13.0.0",
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
