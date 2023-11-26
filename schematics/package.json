@@ -11,14 +11,14 @@
   "license": "MIT",
   "schematics": "./src/collection.json",
   "dependencies": {
-    "@angular-devkit/core": "^10.0.6",
-    "@angular-devkit/schematics": "^10.0.6",
-    "@schematics/angular": "10.0.6",
+    "@angular-devkit/core": "^17.0.3",
+    "@angular-devkit/schematics": "^17.0.3",
+    "@schematics/angular": "17.0.3",
     "fs-extra": "^8.1.0",
     "typescript": "~3.9.7"
   },
   "devDependencies": {
-    "@types/node": "^12.11.1",
+    "@types/node": "^18.13.0",
     "@types/jasmine": "~3.5.0",
     "jasmine": "^3.5.0"
   }

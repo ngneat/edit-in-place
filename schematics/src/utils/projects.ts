@@ -1,4 +1,4 @@
-import { WorkspaceSchema } from '@angular-devkit/core/src/experimental/workspace';
+import { WorkspaceFormat } from '@angular-devkit/core/src/workspace';
 import { SchematicsException, Tree } from '@angular-devkit/schematics';
 
 export function getWorkspacePath(host: Tree): string {
@@ -8,7 +8,7 @@ export function getWorkspacePath(host: Tree): string {
   return path;
 }
 
-export function getWorkspace(host: Tree): WorkspaceSchema {
+export function getWorkspace(host: Tree): WorkspaceFormat {
   const path = getWorkspacePath(host);
   const configBuffer = host.read(path);
   if (configBuffer === null) {

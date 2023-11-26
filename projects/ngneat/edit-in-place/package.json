@@ -4,8 +4,8 @@
   "description": "A flexible and unopinionated edit in place library for Angular applications",
   "schematics": "./schematics/collection.json",
   "peerDependencies": {
-    "@angular/common": ">=8.0.0",
-    "@angular/core": ">=8.0.0"
+    "@angular/common": ">=16.0.0",
+    "@angular/core": ">=16.0.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"

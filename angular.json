@@ -15,7 +15,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/edit-in-place",
             "index": "src/index.html",
@@ -66,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "edit-in-place:build"
+            "buildTarget": "edit-in-place:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "edit-in-place:build:production"
+              "buildTarget": "edit-in-place:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "edit-in-place:build"
+            "buildTarget": "edit-in-place:build"
           }
         },
         "test": {
@@ -107,7 +107,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/ngneat/edit-in-place/tsconfig.lib.json",
             "project": "projects/ngneat/edit-in-place/ng-package.json"

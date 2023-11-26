@@ -37,11 +37,9 @@ export async function setupProject(
   delete options.styleFileFormat;
   const appOptions: ApplicationOptions = { ...defaultAppOptions, ...options };
   let tree = await schematicRunner
-    .runSchematicAsync('workspace', { ...workspaceOptions })
-    .toPromise();
+    .runSchematic('workspace', { ...workspaceOptions });
   tree = await schematicRunner
-    .runSchematicAsync('application', appOptions, tree)
-    .toPromise();
+    .runSchematic('application', appOptions, tree);
 
   return tree;
 }

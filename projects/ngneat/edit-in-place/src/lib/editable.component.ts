@@ -3,8 +3,7 @@ import {
   Component,
   ContentChild,
   ElementRef,
-  EventEmitter,
-  Inject,
+  EventEmitter, inject,
   Input,
   OnDestroy,
   OnInit,
@@ -14,7 +13,7 @@ import { BehaviorSubject, fromEvent, Observable, Subject, Subscription } from 'r
 import { filter, skip, switchMap, take, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { ViewModeDirective } from './directives/view-mode.directive';
 import { EditModeDirective } from './directives/edit-mode.directive';
-import { EDITABLE_CONFIG, EditableConfig } from './editable.config';
+import { EDITABLE_CONFIG } from './editable.config';
 import { Mode } from './mode';
 
 @Component({
@@ -26,9 +25,11 @@ import { Mode } from './mode';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditableComponent implements OnInit, OnDestroy {
+  #el = inject(ElementRef);
+  #config = inject(EDITABLE_CONFIG);
   @Input() enabled = true;
-  @Input() openBindingEvent = this.config.openBindingEvent;
-  @Input() closeBindingEvent = this.config.closeBindingEvent;
+  @Input() openBindingEvent = this.#config.openBindingEvent;
+  @Input() closeBindingEvent = this.#config.closeBindingEvent;
 
   @Output() save: EventEmitter<void> = new EventEmitter<void>();
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
@@ -44,10 +45,8 @@ export class EditableComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean> = new Subject<boolean>();
   public isGrouped = false;
 
-  constructor(private readonly el: ElementRef, @Inject(EDITABLE_CONFIG) readonly config: EditableConfig) {}
-
   private get element(): any {
-    return this.el.nativeElement;
+    return this.#el.nativeElement;
   }
 
   ngOnInit(): void {
