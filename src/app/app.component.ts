@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 interface Account {
   name: string;
@@ -19,36 +19,36 @@ export class AppComponent implements OnInit {
 
   // Sample input example
   public inputText = 'foo';
-  public inputControl: FormControl = new FormControl(this.inputText);
+  public inputControl: UntypedFormControl = new UntypedFormControl(this.inputText);
 
   // Sample input example with focus
   public inputFocusText = 'foo';
-  public inputFocusControl: FormControl = new FormControl(this.inputFocusText);
+  public inputFocusControl: UntypedFormControl = new UntypedFormControl(this.inputFocusText);
 
   // Sample input example with action buttons
   public inputButtonsText = 'foo';
-  public inputButtonsControl: FormControl = new FormControl(this.inputButtonsText);
+  public inputButtonsControl: UntypedFormControl = new UntypedFormControl(this.inputButtonsText);
 
   // Sample select example
   public selectText = 'Canada';
-  public selectControl: FormControl = new FormControl(this.selectText);
+  public selectControl: UntypedFormControl = new UntypedFormControl(this.selectText);
   public selectOptions = ['Belgium', 'Italy', 'Canada'];
 
   // Sample checkbox example
   public checkboxText = true;
-  public checkboxControl: FormControl = new FormControl(this.checkboxText);
+  public checkboxControl: UntypedFormControl = new UntypedFormControl(this.checkboxText);
 
   // Sample range example
   public rangeText = 8;
-  public rangeControl: FormControl = new FormControl(this.rangeText);
+  public rangeControl: UntypedFormControl = new UntypedFormControl(this.rangeText);
 
   // Sample radio example
   public radioText = 'blue';
-  public radioControl: FormControl = new FormControl(this.radioText);
+  public radioControl: UntypedFormControl = new UntypedFormControl(this.radioText);
   public radioOptions = ['blue', 'green'];
 
   // Sample table example
-  public formArray: FormArray;
+  public formArray: UntypedFormArray;
   public accounts: Accounts = [
     { name: 'John', role: 'Product Owner', isActive: false },
     { name: 'Sarah', role: 'Developer', isActive: true },
@@ -57,7 +57,7 @@ export class AppComponent implements OnInit {
 
   // multiple form
   public mode: 'view' | 'edit' = 'view';
-  public groupedForm: FormGroup;
+  public groupedForm: UntypedFormGroup;
   public identity = {
     name: 'John Doe',
     city: 'London',
@@ -65,29 +65,29 @@ export class AppComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.formArray = new FormArray(this.toGroups());
+    this.formArray = new UntypedFormArray(this.toGroups());
     this.initGroupedForm();
   }
 
-  getControl(index: number, field: string): FormControl {
-    return this.formArray.at(index).get(field) as FormControl;
+  getControl(index: number, field: string): UntypedFormControl {
+    return this.formArray.at(index).get(field) as UntypedFormControl;
   }
 
   toGroups(): AbstractControl[] {
     return this.accounts.map((account) => {
-      return new FormGroup({
-        name: new FormControl(account.name),
-        role: new FormControl(account.role),
-        isActive: new FormControl(account.isActive),
+      return new UntypedFormGroup({
+        name: new UntypedFormControl(account.name),
+        role: new UntypedFormControl(account.role),
+        isActive: new UntypedFormControl(account.isActive),
       });
     });
   }
 
   initGroupedForm(): void {
-    this.groupedForm = new FormGroup({
-      name: new FormControl(this.identity.name),
-      city: new FormControl(this.identity.city),
-      country: new FormControl(this.identity.country),
+    this.groupedForm = new UntypedFormGroup({
+      name: new UntypedFormControl(this.identity.name),
+      city: new UntypedFormControl(this.identity.city),
+      country: new UntypedFormControl(this.identity.country),
     });
   }
 
