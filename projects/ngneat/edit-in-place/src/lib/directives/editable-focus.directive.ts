@@ -1,12 +1,13 @@
-import { Directive, ElementRef, OnInit } from '@angular/core';
+import { Directive, ElementRef, inject, OnInit } from '@angular/core';
 
 @Directive({
   selector: '[editableFocusable]',
+  standalone: true,
 })
 export class EditableFocusDirective implements OnInit {
-  constructor(private readonly el: ElementRef) {}
+  #el = inject(ElementRef);
 
   ngOnInit(): void {
-    this.el.nativeElement.focus();
+    this.#el.nativeElement.focus();
   }
 }

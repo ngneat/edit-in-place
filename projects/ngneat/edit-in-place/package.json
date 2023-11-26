@@ -1,11 +1,11 @@
 {
   "name": "@ngneat/edit-in-place",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "A flexible and unopinionated edit in place library for Angular applications",
   "schematics": "./schematics/collection.json",
   "peerDependencies": {
-    "@angular/common": ">=8.0.0",
-    "@angular/core": ">=8.0.0"
+    "@angular/common": ">=16.0.0",
+    "@angular/core": ">=16.0.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"

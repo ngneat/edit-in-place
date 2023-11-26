@@ -1,34 +1,42 @@
 import {
+  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   ContentChild,
+  DestroyRef,
   ElementRef,
   EventEmitter,
-  Inject,
+  inject,
   Input,
   OnDestroy,
-  OnInit,
   Output,
+  signal,
 } from '@angular/core';
-import { BehaviorSubject, fromEvent, Observable, Subject, Subscription } from 'rxjs';
-import { filter, skip, switchMap, take, takeUntil, withLatestFrom } from 'rxjs/operators';
+import { fromEvent, Subscription } from 'rxjs';
+import { filter, skip, switchMap, take } from 'rxjs/operators';
 import { ViewModeDirective } from './directives/view-mode.directive';
 import { EditModeDirective } from './directives/edit-mode.directive';
-import { EDITABLE_CONFIG, EditableConfig } from './editable.config';
+import { EDITABLE_CONFIG } from './editable.config';
 import { Mode } from './mode';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'editable',
-  template: `
-    <ng-container *ngTemplateOutlet="(editMode$ | async) ? editModeTpl.tpl : viewModeTpl.tpl"></ng-container>
-  `,
+  template: ` <ng-container *ngTemplateOutlet="editMode() ? editModeTpl.tpl : viewModeTpl.tpl"></ng-container> `,
   styles: [':host {cursor: pointer;}'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [AsyncPipe, NgTemplateOutlet],
 })
-export class EditableComponent implements OnInit, OnDestroy {
+export class EditableComponent implements OnDestroy {
+  #el = inject(ElementRef);
+  #config = inject(EDITABLE_CONFIG);
+  #destroyRef = inject(DestroyRef);
+
   @Input() enabled = true;
-  @Input() openBindingEvent = this.config.openBindingEvent;
-  @Input() closeBindingEvent = this.config.closeBindingEvent;
+  @Input() openBindingEvent = this.#config.openBindingEvent;
+  @Input() closeBindingEvent = this.#config.closeBindingEvent;
 
   @Output() save: EventEmitter<void> = new EventEmitter<void>();
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
@@ -37,26 +45,25 @@ export class EditableComponent implements OnInit, OnDestroy {
   @ContentChild(ViewModeDirective) viewModeTpl: ViewModeDirective;
   @ContentChild(EditModeDirective) editModeTpl: EditModeDirective;
 
-  private readonly editMode: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public readonly editMode$: Observable<boolean> = this.editMode.asObservable();
+  editMode = signal(false);
+  editMode$ = toObservable(this.editMode);
+
   public viewHandler: Subscription;
   public editHandler: Subscription;
-  private destroy$: Subject<boolean> = new Subject<boolean>();
-  public isGrouped = false;
-
-  constructor(private readonly el: ElementRef, @Inject(EDITABLE_CONFIG) readonly config: EditableConfig) {}
+  public isGrouped = signal(false);
 
   private get element(): any {
-    return this.el.nativeElement;
+    return this.#el.nativeElement;
   }
 
-  ngOnInit(): void {
-    this.handleViewMode();
-    this.handleEditMode();
+  constructor() {
+    afterNextRender(() => {
+      this.handleViewMode();
+      this.handleEditMode();
+    });
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next(true);
     // Caretaker note: we're explicitly setting these subscriptions to `null` since this actually will be closed subscriptions,
     // but they still keep referencing `destination`'s, which are `SafeSubscribers`. Destinations keep referencing `next` functions,
     // which are `() => this.displayEditMode()` and `() => this.saveEdit()`.
@@ -68,10 +75,8 @@ export class EditableComponent implements OnInit, OnDestroy {
   private handleViewMode(): void {
     this.viewHandler = fromEvent(this.element, this.openBindingEvent)
       .pipe(
-        filter(() => this.enabled),
-        withLatestFrom(this.editMode$),
-        filter(([_, editMode]) => !editMode),
-        takeUntil(this.destroy$)
+        filter(() => this.enabled && !this.editMode()),
+        takeUntilDestroyed(this.#destroyRef)
       )
       .subscribe(() => this.displayEditMode());
   }
@@ -92,13 +97,13 @@ export class EditableComponent implements OnInit, OnDestroy {
     this.editHandler = this.editMode$
       .pipe(
         switchMap((editMode: boolean) => clickOutside$(editMode)),
-        takeUntil(this.destroy$)
+        takeUntilDestroyed(this.#destroyRef)
       )
       .subscribe(() => this.saveEdit());
   }
 
   public displayEditMode(): void {
-    this.editMode.next(true);
+    this.editMode.set(true);
     this.modeChange.emit('edit');
   }
 
@@ -113,9 +118,9 @@ export class EditableComponent implements OnInit, OnDestroy {
   }
 
   private leaveEditMode(): void {
-    this.editMode.next(false);
+    this.editMode.set(false);
     this.modeChange.emit('view');
-    if (!this.isGrouped) {
+    if (!this.isGrouped()) {
       this.viewHandler.unsubscribe();
       setTimeout(() => this.handleViewMode(), 0);
     }

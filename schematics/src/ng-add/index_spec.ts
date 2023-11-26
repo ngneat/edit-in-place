@@ -38,8 +38,7 @@ describe('ng-add schematic', () => {
     beforeEach(async () => {
       const options = {...defaultOptions};
       appTree = await customRunner
-        .runSchematicAsync('ng-add', options, appTree)
-        .toPromise();
+        .runSchematic('ng-add', options, appTree);
     });
 
     it('THEN should include the EditableModule in app.module', () => {
