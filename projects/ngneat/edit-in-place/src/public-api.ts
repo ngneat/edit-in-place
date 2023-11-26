@@ -2,8 +2,8 @@
  * Public API Surface of edit-in-place
  */
 
-export * from './lib/editable.module';
 export * from './lib/editable.config';
+export * from './lib/editable.types';
 
 export * from './lib/directives/editable-group-edit.directive';
 export * from './lib/directives/editable-group-save.directive';
