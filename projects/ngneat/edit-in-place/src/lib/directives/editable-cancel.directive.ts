@@ -1,24 +1,22 @@
-import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import {DestroyRef, Directive, ElementRef, inject, Input, OnDestroy, OnInit} from '@angular/core';
 import { EditableComponent } from '../editable.component';
-import { fromEvent, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { fromEvent } from 'rxjs';
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Directive({
   selector: '[editableOnCancel]',
+  standalone: true,
 })
-export class EditableCancelDirective implements OnInit, OnDestroy {
-  @Input() cancelEvent = 'click';
-  private destroy$: Subject<boolean> = new Subject<boolean>();
+export class EditableCancelDirective implements OnInit {
+  #editable = inject(EditableComponent);
+  #el = inject(ElementRef);
+  #destroyRef = inject(DestroyRef);
 
-  constructor(private readonly editable: EditableComponent, private el: ElementRef) {}
+  @Input() cancelEvent = 'click';
 
   ngOnInit(): void {
-    fromEvent(this.el.nativeElement, this.cancelEvent)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => this.editable.cancelEdit());
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
+    fromEvent(this.#el.nativeElement, this.cancelEvent)
+      .pipe(takeUntilDestroyed(this.#destroyRef))
+      .subscribe(() => this.#editable.cancelEdit());
   }
 }

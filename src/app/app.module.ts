@@ -1,15 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { EDITABLE_CONFIG, EditableConfig, EditableModule } from '@ngneat/edit-in-place';
-import { ReactiveFormsModule } from '@angular/forms';
+import { EDITABLE_CONFIG, EditableConfig } from '@ngneat/edit-in-place';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, EditableModule, ReactiveFormsModule, NgbModule],
+  imports: [BrowserModule, AppComponent, NgbModule],
   providers: [
     {
       provide: EDITABLE_CONFIG,

@@ -1,5 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import {
+  AbstractControl,
+  ReactiveFormsModule,
+  UntypedFormArray,
+  UntypedFormControl,
+  UntypedFormGroup
+} from '@angular/forms';
+import {
+  EditableCancelDirective,
+  EditableComponent,
+  EditableFocusDirective,
+  EditableGroupCancelDirective,
+  EditableGroupDirective,
+  EditableGroupEditDirective,
+  EditableGroupSaveDirective,
+  EditableOnEnterDirective,
+  EditableOnEscapeDirective,
+  EditableSaveDirective,
+  EditModeDirective,
+  TriggerEvents,
+  ViewModeDirective
+} from "@ngneat/edit-in-place";
+import {NgForOf, NgIf} from "@angular/common";
 
 interface Account {
   name: string;
@@ -13,9 +35,27 @@ type Accounts = Array<Account>;
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [
+    EditableGroupDirective,
+    NgIf,
+    ReactiveFormsModule,
+    EditableGroupSaveDirective,
+    EditableGroupEditDirective,
+    EditableGroupCancelDirective,
+    EditableComponent,
+    ViewModeDirective,
+    EditModeDirective,
+    NgForOf,
+    EditableSaveDirective,
+    EditableCancelDirective,
+    EditableOnEnterDirective,
+    EditableOnEscapeDirective,
+    EditableFocusDirective
+  ]
 })
 export class AppComponent implements OnInit {
-  public openBindingEvent = 'dblclick';
+  public openBindingEvent: TriggerEvents = 'dblclick';
 
   // Sample input example
   public inputText = 'foo';

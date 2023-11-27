@@ -1,14 +1,15 @@
-import { Directive, HostListener } from '@angular/core';
+import {Directive, HostListener, inject} from '@angular/core';
 import { EditableComponent } from '../editable.component';
 
 @Directive({
   selector: '[editableOnEscape]',
+  standalone: true,
 })
 export class EditableOnEscapeDirective {
-  constructor(private readonly editable: EditableComponent) {}
+  #editable = inject(EditableComponent);
 
   @HostListener('keyup.escape')
   onEnter(): void {
-    this.editable.cancelEdit();
+    this.#editable.cancelEdit();
   }
 }
