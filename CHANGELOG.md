@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/ngneat/edit-in-place/compare/v1.6.0...v1.8.0) (2023-11-27)
+
+
+### Features
+
+* update library configuration ([187ee8f](https://github.com/ngneat/edit-in-place/commit/187ee8f85be86e49dac998e369cdfaa19ffa13ef))
+
+
+### Bug Fixes
+
+* dependencies vulnerabilities ([7e65729](https://github.com/ngneat/edit-in-place/commit/7e657297cbdbd534ac8e68c43ab252bebaae8eda))
+* **lib:** update deprecated id keyword ([b86d2b9](https://github.com/ngneat/edit-in-place/commit/b86d2b9d7c902744464e99a6748e128a8479b3d7)), closes [#11](https://github.com/ngneat/edit-in-place/issues/11)
+
 ## [1.7.0](https://github.com/ngneat/edit-in-place/compare/v1.6.0...v1.7.0) (2023-11-27)
 
 
