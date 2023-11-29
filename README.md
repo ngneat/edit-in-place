@@ -31,9 +31,29 @@ Following open/closed principle, the library focuses on the switch mechanism, gi
 
 ## Installation
 
-`ng add @ngneat/edit-in-place`
+`npm install @ngneat/edit-in-place`
 
 ## Usage
+
+### version 1.9 and above
+
+> The project is now using the Angular Standalone API and support SSR.
+> It requires Angular 16+
+
+Imports the **EditableComponent**, **EditModeDirective** and **EditModeDirective** in the ìmports array of your **NgModule** or your standalone**Component**:
+
+```typescript
+import { EditableComponent, EditModeDirective, EditModeDirective } from '@ngneat/edit-in-place';
+
+@NgModule({
+  ...
+  standalone: true,
+  imports: [EditableComponent, EditModeDirective, EditModeDirective],
+})
+export class AppComponent {}
+```
+
+### version 1.6 and below
 
 Add the `EditableModule` to your `AppModule`.
 
@@ -212,17 +232,25 @@ The following actions will trigger this event:
 
 #### editableFocusable
 
+> import { EditableFocusableDirective } from '@ngneat/edit-in-place';
+
 Focus the host element when switching to `editMode` (for nested inputs).
 
 #### editableOnEnter
+
+> import { EditableOnEnterDirective } from '@ngneat/edit-in-place';
 
 Listen to keyup `enter` to switch to `viewMode` and update the value of the `viewMode` host element.
 
 #### editableOnEscape
 
+> import { EditableOnEscapeDirective } from '@ngneat/edit-in-place';
+
 Listen to keyup `escape` to switch to `viewMode` without updating the value of the `viewMode` host element.
 
 #### editableOnSave
+
+> import { EditableOnSaveDirective } from '@ngneat/edit-in-place';
 
 Listen to a `MouseEvent` on ths host element in order to switch to `viewMode` and udpate the value of the content of the `viewMode`*host element.
 
@@ -315,6 +343,8 @@ It's triggered by the `editableGroupCancel`:
 
 #### editableGroup
 
+> import { EditableGroupDirective } from '@ngneat/edit-in-place';
+
 Overcharges the behavior of children editable Components to work as one entity.
 
 | @Output                | Type                      | Description                                                                                                               |
@@ -326,15 +356,21 @@ Overcharges the behavior of children editable Components to work as one entity.
 
 #### editableGroupEdit
 
+> import { EditableGroupEditDirective } from '@ngneat/edit-in-place';
+
 Listen to a click `MouseEvent` to switch to *editMode*.
 
 
 #### editableGroupSave
 
+> import { EditableGroupSaveDirective } from '@ngneat/edit-in-place';
+
 Listen to a click `MouseEvent` to switch to *viewMode* and update the value of the group.
 
 
 #### editableGroupCancel
+
+> import { EditableGroupCancelDirective } from '@ngneat/edit-in-place';
 
 Listen to a click `MouseEvent` to switch to *viewMode* without updating the value of the group.
 
