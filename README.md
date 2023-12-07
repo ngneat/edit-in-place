@@ -40,15 +40,15 @@ Following open/closed principle, the library focuses on the switch mechanism, gi
 > The project is now using the Angular Standalone API and support SSR.
 > It requires Angular 16+
 
-Imports the **EditableComponent**, **EditModeDirective** and **EditModeDirective** in the ìmports array of your **NgModule** or your standalone**Component**:
+Imports the **EditableComponent**, **EditModeDirective** and **ViewModeDirective** in the ìmports array of your **NgModule** or your standalone**Component**:
 
 ```typescript
-import { EditableComponent, EditModeDirective, EditModeDirective } from '@ngneat/edit-in-place';
+import { EditableComponent, EditModeDirective, ViewModeDirective } from '@ngneat/edit-in-place';
 
 @NgModule({
   ...
   standalone: true,
-  imports: [EditableComponent, EditModeDirective, EditModeDirective],
+  imports: [EditableComponent, EditModeDirective, ViewModeDirective],
 })
 export class AppComponent {}
 ```
