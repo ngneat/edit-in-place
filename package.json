@@ -52,7 +52,7 @@
     "@angular/localize": "^17.0.4",
     "@angular/platform-browser": "^17.0.4",
     "@angular/platform-browser-dynamic": "^17.0.4",
-    "@angular/router": "^17.0.4",
+    "@angular/router": "^17.3.0",
     "@ng-bootstrap/ng-bootstrap": "^16.0.0",
     "@ngneat/lib": "^3.0.0",
     "bootstrap": "^5.3.2",
