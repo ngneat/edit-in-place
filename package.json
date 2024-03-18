@@ -48,7 +48,7 @@
     "@angular/common": "^17.0.4",
     "@angular/compiler": "^17.0.4",
     "@angular/core": "^17.0.4",
-    "@angular/forms": "^17.0.4",
+    "@angular/forms": "^17.3.0",
     "@angular/localize": "^17.0.4",
     "@angular/platform-browser": "^17.0.4",
     "@angular/platform-browser-dynamic": "^17.0.4",
